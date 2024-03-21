@@ -1,0 +1,183 @@
+6.3.1
+getwd()
+setwd("C:/Rdata")
+getwd()
+
+rr1 <‐ read.csv("r_stat.csv")
+
+x1<‐na.omit(rr1$연간소득)
+mean(x1)
+median(x1)
+Mode <‐ function(t) { tt <‐ unique(t)
+tt[which.max(tabulate(match(t, tt)))] }
+Mode(x1)
+summary(x1)
+
+
+
+6.4.1
+getwd()
+setwd("C:/Rdata")
+getwd()
+
+rr1 <‐ read.csv("r_stat.csv")
+# 빈도
+table(rr1$성별1)
+table(rr1$자격증)
+table(rr1$직급1)
+table(rr1$혼인상태1)
+
+# 시각화
+plot(rr1$성별1, xlab="성별", ylab="수", main="성별수")
+plot(rr1$자격증, xlab="자격증유무", ylab="수", main="자격증 보유 유무")
+plot(rr1$직급1, xlab="직급", ylab="수", main="직급별 수")
+plot(rr1$혼인상태1, xlab="혼인상태", ylab="수", main="혼인상태별 수")
+
+
+
+6.5.2.1
+getwd()
+setwd("C:/Rdata")
+getwd()
+r <‐ read.csv("khkh.csv")
+dotchart(r$lifemoney, labels=row.names(r))
+#dotchart(연속형 데이터)
+
+
+6.5.2.2
+getwd()
+setwd("C:/Rdata")
+getwd()
+r <‐ read.csv("kh.csv")
+
+barplot(table(r$gender), xlab="성별", ylab="성별수",
+main="성별에 따른 빈도 수",
+ylim=c(0,300)) #barplot(r$gender)만 했을 시 모든 데이터에 관련된 성별이 다 나오기
+때문에 빈도를 확인하는 table() 함수를 이용
+
+barplot(table(r$gender), xlab="성별", ylab="성별수",
+main="성별에 따른 빈도 수",
+ylim=c(0,300), border=NA, las=1) #위의 자료와 비교해 보기
+
+
+6.5.2.3
+2)
+getwd()
+setwd("C:/Rdata")
+getwd()
+r <‐ read.csv("kh.csv")
+hist(r$money, xlab="연봉", ylab="계급 수", main="히스토그램")
+
+4)
+hist(r$money, freq=F, xlab="연봉", main="히스토그램 및 분포")
+lines(density(r$money))
+
+
+6.5.3.1
+getwd()
+setwd("C:/Rdata")
+getwd()
+r <‐ read.csv("kh.csv")
+install.packages("ggplot2")
+library(ggplot2)
+
+r$gender1 <‐ factor(r$gender, levels=c(1,2), labels=c("남","여"))
+
+ggplot(r, aes(x="", y=r$money, fill=gender1)) + geom_bar(stat="identity",
+width=1) + coord_polar(theta="y") + ggtitle("파이 차트")
+
+
+6.5.3.2
+getwd()
+setwd("C:/Rdata")
+getwd()
+r <‐ read.csv("kh.csv")
+install.packages("ggplot2")
+library(ggplot2)
+
+r$study1 <‐ factor(r$study, levels=c(2,3,4,5,6,7,8,9), labels=c("중학교중퇴
+","중학교졸업","고등학교중퇴","고등학교졸업","전문대","대졸","석사","박사"))
+r$gender1 <‐ factor(r$gender, levels=c(1,2), labels=c("남","여"))
+
+ggplot(r, aes(study1)) + geom_bar(aes(fill=gender1), colour="black") +
+ggtitle("누적 막대 차트")
+
+
+6.5.4.1 라인차트
+
+getwd()
+setwd("C:/Rdata")
+getwd()
+r <‐ read.csv("weather.csv")
+install.packages("dplyr")
+library(dplyr)
+install.packages("ggplot2")
+library(ggplot2)
+
+qplot(month, temporary, data = r, geom = "line"))
+
+
+6.5.4.2
+getwd()
+setwd("C:/Rdata")
+getwd()
+r <‐ read.csv("kh.csv")
+install.packages("ggplot2")
+library(ggplot2)
+r$study1 <‐ factor(r$study, levels=c(2,3,4,5,6,7,8,9), labels=c("중학교중퇴
+","중학교졸업","고등학교중퇴","고등학교졸업","전문대","대졸","석사", "박사"))
+ggplot(r, aes(study1, money)) + geom_boxplot() + ggtitle("박스 플롯")
+
+
+6.5.5.1
+2)
+getwd()
+setwd("C:/Rdata")
+getwd()
+r <‐ read.csv("kh.csv")
+
+install.packages("ggplot2")
+library(ggplot2)
+install.packages("labeling")
+library(labeling)
+
+r$baby1 <‐ factor(r$baby, levels=c(1,2), labels=c("예","아니오")) # numeric
+형태이던 것을 명목형태로 바꿔주기
+ggplot(data=r, aes(x=lifemoney, y=money)) + geom_point(shape=19, size=3,
+colour="black")
+ggplot(data=r, aes(x=lifemoney, y=money, colour=baby1)) + geom_point
+(shape=19, size=3) # 추가로 자녀의 유무에 따른 연봉과 생활비 산점도
+
+4)
+plot(r$money, r$lifemoney)
+abline(a=40.3791, b=0.0336, col="red")
+
+
+6.5.5.2
+getwd()
+setwd("C:/Rdata")
+getwd()
+r <‐ read.csv("kh.csv")
+
+library(ggplot2)
+r$study1 <‐ factor(r$study, levels=c(2,3,4,5,6,7,8,9), labels=c("중학교중퇴
+","중학교졸업","고등학교중퇴","고등학교졸업","전문대","대졸","석사", "박사"))
+
+ggplot(r, aes(x=money, y=age)) +
+geom_point(aes(size=lifemoney), shape=21, colour="grey90", fill="green",
+alpha=0.5) + geom_text(aes(y=as.numeric(age)‐sqrt(lifemoney)/10,abel=study),
+vjust=1,colour="grey40", size=3) + scale_size_area(max_size = 15)
+# 범례 없애려면 guide=FALSE
+ggtitle("버블 차트")
+
+
+6.5.5.3
+getwd()
+setwd("C:/Rdata")
+getwd()
+r <‐ read.csv("kh.csv")
+r1 <‐ r[c("age","money","lifemoney")] # 정량데이터만 추출
+
+plot(r1) # 기존 r에서 제공해주는 함수 사용
+
+

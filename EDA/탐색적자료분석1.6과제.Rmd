@@ -1,0 +1,95 @@
+---
+title: "탐색적 자료분석 1.6과제"
+output: html_document
+author: "215083 박재석"
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+####
+#### 라이브러리 불러오기
+
+```{r message=FALSE, warning=FALSE, ehco=TRUE}
+#install.packages("tidyverse")
+library(tidyverse)
+```
+
+#### 첫번째 플롯
+
+```{r message=FALSE}
+ggplot(mpg, mapping = aes(x=displ, y = hwy))+
+  geom_point(size = 5)+
+  geom_smooth(se=F)
+```
+
+```         
+자동차 배기량과 고속도로연비 사이의 상관관계를 알 수 있다.
+자동차 배기량이 커질수록 연비가 대체적으로 작아지고있다.
+추세선을 살펴보더라도 둘 사이 음의 상관관계가 보인다. 이때 배기량이 5이상인 집단에서 동일 수준의 배기량 집단보다 상대적으로 높은 연비(좋은 연비를 가진) 군집이 눈에 띄인다.
+```
+
+#### 두번째 플롯
+
+```{r message=FALSE}
+ggplot(mpg, mapping = aes(x=displ, y = hwy))+
+  geom_point(size = 5)+
+  geom_smooth(mapping = aes(group=drv), se=F)
+```
+
+```         
+각각의 구동방식에따른 상관관계를 나타나는 세 개의 추세선을 포함하고있다.
+범주가 표시되어있지않아 어떤 방식인지는 식별되지 않지만, 추세선을 보면 하나의 구동방식에서만 눈에 띄는 음의 상관관계를 보인다.
+하나의 구동방식에서는 특정 수준 배기량 까지는 음의 상관관계가 보이지만, 일정 수준 이상의 배기량부터는 서로 상관관계가 없어보인다.
+또 다른 하나의 구동방식에서는 특정 수준배기량까지는 음의 상관관계를 보이며 연비가 변화하지만, 일정 수준 이상에서는 오히려 양의 상관관계를 보인다.
+```
+
+#### 세번째 플롯
+
+```{r message = FALSE}
+ggplot(mpg, mapping = aes(x=displ, y = hwy))+
+  geom_point(size = 5, mapping = aes(color=drv))+
+  geom_smooth(mapping = aes(group=drv), se=F,show.legend=T)
+```
+
+```         
+추세선을 통해 4륜 구동과 전륜 구동에서 음의 상관관계를 볼 수있다. 이때 전륜구동에서 추세선이 배기량 3이상부터 x축과 평행해보여 전륜구동 차량은 배기량이3 이상에선 연비와 상관관계가 없어보이지만, 산점도를 보면 배기량이 4 이상인 전륜구동 차량은 1개만 있기에 x축과 평행한 부분의 추세선은 상관관계를 보는데 유의미해 보이지 않는다. 이상치를 제거하는게 좋아보인다.
+마지막으로 앞에서 일정 수준 이상에서는 오히려 양의 상관관계를 보이는 구동 방식은 후륜구동임을 알 수 있다. 
+```
+
+#### 네번째 플롯
+
+```{r message=FALSE}
+ggplot(mpg, mapping = aes(x=displ, y = hwy))+
+  geom_point(size = 5, mapping = aes(color=drv),show.legend=T)+
+  geom_smooth(se=F)
+```
+
+```         
+차량 전체에 대한 배기량-고속도로연비 추세선을 나타내고 구동방식에 따라 다른 색의 점으로 산점도를 그렸다. 눈여겨 볼 점은 앞서 배기량이 5이상인 집단에서 동일 수준의 배기량 집단보다 상대적으로 높은 연비(좋은 연비를 가진) 군집이 있음을 확인했는데, 이 군집이 다른 배기량 집단임을 의미하지 않음을 볼 수 있다. 따라서 이를 알아보기 위해선 다른 이산형 변수를 기준으로 나눠 볼 것을 고려해 볼 수 있다.
+```
+
+#### 다섯번째 플롯
+
+```{r message=FALSE}
+ggplot(mpg, mapping = aes(x=displ, y = hwy))+
+  geom_point(size = 5, mapping = aes(color=drv))+
+  geom_smooth(mapping = aes(linetype =drv),se=F,show.legend=T)
+```
+
+```         
+구동 방식에 따라 다른 모양의 추세선으로 나타냈다. 선의 모양으로 구동방식을 구별하기 용이하지마, 산점도에서 구동 방식별 점들이 비슷한 영역에 같이 모여있지 않고 서로 떨어져있어 굳이 선의 모양을 다르게 하지 않더라도 구별에 문제가 없어 이 상황에서는 라인타입을 구별하는 옵션의 필요성이 낮아 보인다.
+```
+
+#### 여섯번째 플롯
+
+```{r message=FALSE}
+p<-ggplot(mpg, aes(x = displ, y = hwy))
+p+geom_point(aes(fill=drv),shape=21,color="white", stroke=4, size=5, show.legend = T)
+```
+
+```         
+shape옵션을 이용해 산점도속 모든 점의 모양을 21번 모양으로 설정함. 21번 모양은 테두리가 있고 속이 채워진 형태로 fill으로 속의 색, color로 태두리의 색을 지정할 수 있다.
+```

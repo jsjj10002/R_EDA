@@ -80,4 +80,32 @@ delay %>%
 install.packages("Lahman")
 library(Lahman)
 
-Lahman::
+?Lahman
+#타율 = 기술 수준: 안타수/유효타석수 
+batting <- as_tibble(Lahman::Batting) # :: -> 경로
+#데이터를 선수 아이디별 타율을 요약해 할당시킴킴
+"""
+ab = 안타를 칠 기회
+ba = 타율 
+"""
+
+batters <- batting %>% 
+    group_by(playerID) %>% 
+    summarize(
+        ba = sum(H, na.rm = T)/sum(AB, na.rm = T),
+        ab = sum(AB, na.rm = T)
+    )
+#기술 수준과 볼을 칠 기회 사이 상관계 보기 위한 플로팅 
+batters %>% 
+    filter(ab>100) %>% 
+    ggplot(aes(x=ab, y=ba))+
+    geom_point()+
+    geom_smooth(se=F)
+"""
+ab가 커질수록 변동이 줄어듦
+볼을 칠 기회가 많아질 수록 타율이 높아짐: 양의 상관계가 보임
+"""
+#평균 타율이 높은 선수는 능력치가 좋은가?
+batters %>% 
+    arrange(desc(ba)) #단순히 운이 좋음 
+

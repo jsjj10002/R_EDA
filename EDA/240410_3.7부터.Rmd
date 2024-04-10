@@ -1,0 +1,53 @@
+---
+title: "240410_3-7부터"
+author: "215083 박재석"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+## 3.7그룹화 뮤테이트(와 필터링)
+
+```{r}
+library(nycflights13)
+library(tidyverse)
+```
+
+```{r}
+flights_sml <-flights %>%
+    select(year:day, ends_with("delay"),distance,air_time)
+flights_sml %>% 
+    group_by(year, month, day) %>% 
+    filter(rank(desc(arr_delay))<10)
+```
+
+```{r}
+f_s <- flights_sml %>% 
+    group_by(year, month, day)
+
+#rank(desc(f_s$arr_delay))
+```
+
+```{r}
+flights %>% 
+    group_by(dest) %>% 
+    filter(n()>365) %>% 
+    filter(arr_delay>0) %>% 
+    mutate(prop_delay = arr_delay / sum(arr_delay)) %>% 
+    select(year:day,dest, arr_delay,prop_delay)
+```
+
+# 5.탐색적 데이터분석(EDA)
+
+데이터 시각화, 탐색, 변형, 변수끼리의조합, 모델링 반복적인 작업.\
+변수 짝을 지어서 설명할 거리가 있는지 확인하는 과정. 
+
+## 5.2질문하기 
+1. 변수 내에서 어떤 유형의 변동이 발생하는가-막대도표, 점도표
+2. 변수사이에 어떤 공변동이 발생하는가 
+```용어
+[용어]
+변수: 특정할 수 있는 속성(열)
+값: 측정돨때의 상태 
+관측값: 그떄의 측정된 값 다양한 값을 포함(행행)
+값은 셀에, 변수는열에, 관측값은 행에 있을떄 타이디(tidy)한다 라고 함.
+```

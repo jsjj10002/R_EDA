@@ -1,0 +1,232 @@
+---
+title: "탐색적자료분석 3장 후반 과제"
+author: "215083 박재석"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+준비사항
+
+```{r , message=FALSE}
+library(tidyverse)
+library(nycflights13)
+
+not_cancelled <- flights %>% 
+    filter(!is.na(dep_delay),!is.na(arr_delay))
+```
+
+### 3.6.2 count()를 사용하지 않고 같은 결과 내기
+
+```{r, include=FALSE}
+not_cancelled %>% 
+    count(dest)
+```
+
+```{r, echo=TRUE}
+not_cancelled %>% 
+    group_by(dest) %>% 
+    summarise(n_dest= n())
+```
+
+group_by()와 summarise(), n()을 사용해 count()와와 동일한 결과를 낼 수 있다.
+
+```{r, include=FALSE}
+not_cancelled %>% 
+    count(tailnum, wt = distance)
+```
+
+```{r, echo=TRUE}
+not_cancelled %>% 
+    group_by(tailnum) %>% 
+    summarise(sum_dis = sum(distance))
+```
+
+group_by(), summarise(), sum()을 이용해 count()에서의의 가중치 변수 사용과 동일한 결과를 낼 수 있다.
+
+### 3.6.4 일간 취소된 항공편의 수와 비율을 살펴보고, 평균지연시간과의 관련성알아보기
+
+```{r, echo=TRUE}
+flights %>% 
+    filter(is.na(dep_time),is.na(arr_time)) %>% 
+    summarise(cancelled = n())
+    
+```
+
+취소된 항공편의 수를 알아보기 위해 is.na()를 이용해 출발 및 도착 시간이 없는 항공을 추출한 후 n()함수를 이용해 그 개수를 셌다. 그 결과 충 8255편의 항공편이 취소되었음을 알 수 있다.
+
+```{r 취소된 항공편 수 내림차순, echo=TRUE, message=FALSE, warning=FALSE}
+flights %>% 
+    filter(is.na(dep_time),is.na(arr_time)) %>% 
+    group_by(year, month, day) %>% 
+    summarise(cancelled = n()) %>% 
+    arrange(desc(cancelled))
+```
+
+일간 취소된 항공변의 수를 group_by()와 n()을 이용해 살펴 볼 수 있다. 2월 8일이 취소 항공편이 427편으로 가장많다.
+
+```{r 취소된 항공편 비율 내림차순, echo=TRUE, message=FALSE, warning=FALSE}
+flights %>% 
+    group_by(year, month, day) %>% 
+    summarise(cancelled = mean(is.na(dep_time)&is.na(arr_time))) %>% 
+    arrange(desc(cancelled))
+    
+```
+
+일별 취소항공편의 비율을 mean(조건)을 이용해 살펴 볼 수 있다. 2월 9일이 약57%로 취소된 비율이 가장 높은 것을 알 수 있다.
+
+```{r 일간 평균출발지연시간 내림차순, echo=TRUE, message=FALSE, warning=FALSE}
+flights %>% 
+    group_by(year, month, day) %>% 
+    summarise(ave_dep_delay = mean(dep_delay,na.rm = T)) %>% 
+    arrange(desc(ave_dep_delay))
+    
+```
+
+평균출발지연시간은 3월 8일이 약 83분으로 가장 길다.
+
+```{r 일간 평균도착지연시간 내림차순 ,echo=TRUE, message=FALSE, warning=FALSE}
+flights %>% 
+    group_by(year, month, day) %>% 
+    summarise(ave_arr_delay = mean(arr_delay,na.rm = T)) %>% 
+    arrange(desc(ave_arr_delay))
+```
+
+평균도착지연시간또한 3월 8일이 약 85분으로 가장 길다.
+
+```{r 취소된 항공편 수와 평균지연시간 사이 관계 ,echo=TRUE, warning=FALSE, message=FALSE}
+flights %>% 
+    group_by(year, month, day) %>% 
+    summarise(n_cancelled = sum(is.na(dep_time)), ave_delay = mean(dep_delay, na.rm = T)) %>% 
+    ggplot(aes(x= ave_delay, y=n_cancelled))+
+    geom_point()
+```
+
+```         
+취소된 항공편 수와 평균지연시간 사이 관련성을 보기 위헤 일별 취소 항공편 수를 세 n_cancelled로, 일별 평균 지연시간을 계산 해 ave_delay로 새 변수를 지정했다. 이후 ggplot을 이용해 산점도를 그렸다. 산점도를 보면 지연시간이 길어질수록 취소를 많이 하는 경향이 있다. 그러나 앞서 본 듯 가장 많이 취소한 2월8일의 평균 지연시간은 높지 않음을 알 수 있다. 이를 통해 항공편의 취소를 설명할 수 있는 지연 시간보다 더 강력한 변수가 있음을 짐작할 수 있다.    
+```
+
+### 3.6.6 count()의 sort 인수의 역할
+
+```{r message=FALSE, paged.print=FALSE}
+?count
+```
+
+[결과]
+
+![](스크린샷%202024-04-10%20152506.png){width="680"}
+
+sort 인수를 사용하면 내림차순정렬을 할 수 있다.
+
+```{r }
+starwars %>% 
+    count(species)
+```
+
+count만 사용히면 기본적으로 선택한 변수기준 오름차순이다.
+
+```{r }
+starwars %>% 
+    count(species, sort = T)
+```
+
+sort 인수를 추가하여 그룹의 개수를 기준으로 내림차순 정렬할 수 있다.
+
+-   count()와 sort 인수의 사용
+
+```{r echo=TRUE}
+flights %>% 
+    count(origin, sort = T)
+```
+
+만약 가장 많은 항공이 출발하는 곳을 알고 싶다면 위와같이 사용해 뉴어크리버티국제공항(EWR)에서의 출발이 가장 많고 존 F.케네디국제공항(JFK), 라과디아공항(LGA)순으로 많이 출발하는 것을 알 수 있다.
+
+```{r}
+flights %>% 
+    count(month, sort = T)
+```
+
+또는 위처럼 가장 많은 항공편이 운행된 달을 알고자할 때 count와 sort인수를 사용면 결과로부터 7월이 가장 많은 항공이 운행된 달 임을 쉽게 알 수 있다.
+
+### 3.7.2 최악의 정시 기록을 가진 항공기 찾기
+
+```{r 최악의 정시 기록 가진 항공기 찾기, echo=TRUE, message=FALSE, warning=FALSE}
+flights %>% 
+    group_by(month, day, tailnum, arr_delay, dep_delay) %>% 
+    summarise() %>% 
+    arrange(desc(arr_delay))
+```
+
+arrange()를 사용해 도착지연시간을 내림차순정렬해 찾을 수 있다. 이로부터 찾아낸 가장 최악의 정시 기록을 가지고 있는 항공기는 N384HA이다. 1272분(약 21시간) 지연됐다.
+
+```{r}
+flights %>% 
+    group_by(year) %>% 
+    filter(rank(desc(arr_delay))==1) %>% 
+    summarise(tailnum, arr_delay)
+    
+```
+
+위와같이 group_by()와 필터링을 통해서도 찾을 수 있다. \### 3.7.4 각 목적지별 총 지연시간을 분으로 계산, 각 항공편별로 목적지까지의 총 지연시간의 비율 계산 \#### 목적지별 총 지연 시간
+
+```{r}
+flights %>% 
+    group_by(dest) %>% 
+    mutate(sum_delay = sum(arr_delay, na.rm = T)) %>% 
+    select(dest,sum_delay) 
+```
+
+group_by와 mutate를 이용해 도착지별 총 지연 시간을 계산 할 수 있다.
+
+```{r}
+flights %>% 
+    group_by(dest) %>% 
+    summarise(sum_delay = sum(arr_delay,na.rm = T))
+```
+
+summarise를 이용해서도 도착지별 지연시간 총 합을 똑같이 구할 수 있다. 이때는 중복된 그룹들을 하나로 볼 수 있다.
+
+#### 항공편 별 목적지까지의 총 지연시간의 비율
+
+```{r}
+flights %>% 
+    group_by(dest) %>% 
+    filter(arr_delay>0) %>% 
+    mutate(per_delay = arr_delay/sum(arr_delay, na.rm = T)) %>% 
+    select(year:day, dest, per_delay)
+```
+
+### 3.7.6 목적지별 의심스럽게 빠른 항공,상대 비행 시간 계산
+
+#### 입력오류 의심되는 항공편 찾기
+
+```{r message=FALSE, warning=FALSE}
+flights %>% 
+    group_by(dest) %>% 
+    mutate(speed=distance/air_time,speed_999 = quantile(speed,0.999,na.rm=T), ave_speed = mean(speed, na.rm = T)) %>% 
+    select(year:day,dest,tailnum,speed, speed_999, ave_speed) %>% 
+    filter(speed>speed_999) %>% 
+    summarise(dest, tailnum, speed, ave_speed, speed_999) %>% 
+    arrange(desc(speed)) 
+```
+
+mutate를 이용해 각 항공편 별로 distance/air_time을 계산해 speed변수를 만들고 각 목적지 별로 평균 속도, 속도가 quantile(speed, 0.999)를 이용해 상위 0.1%에 속하는 항공편을 찾았다. 상위 0.1%인 값보다 큰 속도를 가진 항공편들 중 평균속도와 많은 차이가 나면 입력오류를 의심해 볼 만하다.
+
+```{r message=FALSE, warning=FALSE}
+flights %>% 
+    group_by(dest) %>% 
+    mutate(speed=distance/air_time) %>% 
+    summarise(speed) %>% 
+    ggplot(aes(x=dest, y=speed))+
+    geom_point()
+```
+
+이상치 유무를 확인확인하기 위해 위와같이 시각화를 통해서도 볼 수 있다.
+
+#### 동일 목적지까지 가장 짧은 비행을 기준으로 상대비행시간 계산
+
+```{r}
+flights %>% 
+    group_by(dest) %>% 
+    mutate(min_airtime = min(air_time, na.rm = T),) %>% 
+    
+```

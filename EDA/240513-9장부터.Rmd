@@ -1,0 +1,249 @@
+---
+title: "240513-9장부터"
+author: "215083 박재석"
+date: "`r Sys.Date()`"
+output: html_document
+---
+# 9장 tidyr로 하는 타이디 데이터 
+## 9.2 타이디 데이터
+```
+1. 변수마다 해당되는 열존재
+2. 관측값마다 해당하는 행 존재
+3. 값마다 해당 셀 존재재
+```
+```{r}
+library(tidyverse)
+```
+```{r}
+table1 %>% 
+    mutate(rate =cases/population*10000)
+```
+```{r}
+table1 %>% 
+    count(year,wt= cases)
+```
+```{r}
+table1 %>% 
+    ggplot(aes(year, cases))+
+    geom_line(aes(group = country), color = "grey50")+
+    geom_point(aes(color = country))
+```
+## 9.3 피봇하기 
+### 9.3.1 더 길게 만들기: longer()- 행의 길이를 늘리기
+```
+[세 가지 파라미터]
+값을 나타내는 열 집합
+열 이름 자리에 나타난 값의 변수 이름
+셀에 값이 분산되어 있는 변수의 이름름 
+```
+```{r}
+table4a
+```
+```{r}
+
+table4a %>% 
+    pivot_longer(c(`1999`,`2000`), names_to = "year", values_to = "cases") %>% 
+    mutate(year = parse_integer(year))
+
+```
+```{r}
+table4b %>% 
+    pivot_longer(c(`1999`,`2000`), names_to = "year", values_to = "population") %>% 
+    mutate(year = parse_integer(year))
+
+```
+#### left_join()으로 합치기 
+```{r}
+tidy4a <- table4a %>% 
+    pivot_longer(c(`1999`,`2000`), names_to = "year", values_to = "cases") %>% 
+    mutate(year =  parse_integer(year))
+tidy4b <- table4b %>% 
+    pivot_longer(c(`1999`,`2000`), names_to = "year", values_to = "population") %>% 
+    mutate(year = parse_integer(year))
+left_join(tidy4a, tidy4b)
+```
+### 실습 
+### 1. 파일 불러오기 
+##### 방법 1
+```{r}
+# 인코딩 방식 확인 
+guess_encoding("서울시 지하철 호선별 역별 시간대별 승하차 인원 정보2016.csv")
+```
+```{r}
+rr1 <- read.csv("서울시 지하철 호선별 역별 시간대별 승하차 인원 정보2016.csv",
+         fileEncoding = "euc-kr")
+
+rr1
+```
+```{r}
+t_rr1 <- as_tibble(rr1)
+t_rr1
+```
+##### 방법 2
+```{r}
+rr2 <- read_csv("서울시 지하철 호선별 역별 시간대별 승하차 인원 정보2016.csv",
+                locale = locale(encoding = "euc-kr"))
+```
+```{r}
+rr2
+```
+
+#### 2. longer() 피봇하기 
+
+```{r}
+long_rr2 <- rr2 %>% 
+    pivot_longer(
+        c("04시-05시 승차인원":"03시-04시 하차인원"),
+        names_to = "time",
+        values_to = "population"
+    ) %>% 
+    print(n=5, width = Inf)
+```
+```{r}
+long_rr1 <- t_rr1 %>% 
+    pivot_longer(
+        c("X04시.05시.승차인원":"X03시.04시.하차인원"),
+        names_to = "time",
+        values_to = "population"
+    ) %>% 
+    print(n=5, width = Inf)
+```
+### 9.3.2 더 넓게 만들기 
+
+```
+[파라미터]
+변수 이름을 포한하는 열
+값을 포함하는 열 
+```
+```{r}
+table2
+```
+```{r}
+table2 %>% 
+    pivot_wider(names_from = type, values_from = count)
+```
+```{r}
+table2 %>% 
+    pivot_wider(names_from = type, values_from = count) %>% 
+    mutate(rate =cases / population) %>% 
+    ggplot(aes(x=year, y= rate))+geom_line(aes(group = country), color = "grey50")+
+    geom_point(aes(color = country))
+```
+#### [시험]-longer에서 wider로 다시 넓히기 
+```{r}
+table2 %>% 
+    pivot_wider(names_from = type, values_from = count) %>% 
+    mutate(rate =cases / population) %>% 
+    pivot_wider(names_from = year, values_from = c(cases, population, rate))
+```
+## 9.4 Separate 와 Unite
+
+### 9.4.1 separate()로 분리하기
+
+```{r}
+table3
+```
+```{r}
+table3 %>% 
+    separate(rate, into = c("case", "population"))
+```
+sep 인수 사용 (기본 설정: 슬래쉬 )
+```{r}
+table3 %>% 
+    separate(rate, into = c("case", "population"), sep = "/")
+```
+정수형으로 저장 - 편균이나 합 등 구할 수 있다. 
+```{r}
+table3 %>% 
+    separate(rate, into = c("case", "population"),
+             convert = T)
+```
+sep인수 숫자도 가능 
+```{r}
+table3 %>% 
+    separate(rate, into = c("case", "population"), sep =2)
+```
+### 실습 
+```{r}
+long_rr2
+```
+
+```{r}
+long_rr2 %>% 
+    separate(time, into=c("time2", "승하자구분")) %>% 
+    print(n=5, width=Inf)
+```
+```{r}
+long_rr2 %>% 
+    separate(time, into=c("time2", "승하자구분"), sep=" ") %>% 
+    print(n=5, width=Inf)
+```
+```{r}
+long_rr2 %>% 
+    separate(time, into=c("time2", "승하자구분"), sep=" ") %>%
+    separate(작업일자, into = c("year","month-day"), sep = 4) %>% 
+    separate(`month-day`,
+             into = c("month", "day"), sep =2, convert = T)
+```
+### 9.4.2 nuite()로 결합하기 
+```{r}
+table5
+```
+```{r}
+table5 %>% 
+    unite(new,century, year)
+```
+```{r}
+table5 %>% 
+    unite(new,century, year, sep ="")
+```
+## 9.5 결측값
+
+```{r}
+stocks <- tibble(
+    year = c(2015, 2015, 2015, 2015, 2016, 2016, 2016),
+    qtr = c(1, 2,3, 4, 2, 3, 4),
+    Return = c(1.88, 0.59, 0.35, NA, 0.92, 0.17, 2.66) 
+)
+```
+```
+pivot_longer()= gather()
+pivot_wider() = spread()
+```
+```{r}
+stocks %>% 
+    pivot_wider(names_from = year, values_from = Return)
+```
+```{r} 
+# 시험 출제 
+stocks %>% 
+    pivot_wider(names_from = year, values_from = Return) %>% 
+    pivot_longer(
+        cols = c(`2015`,`2016`),
+        names_to = "year",
+        values_to = "Return",
+        values_drop_na = T
+    )
+```
+spread와 gather 로  하기 
+```{r}
+stocks %>% 
+    spread(year, Return) %>% 
+    gather('2015':'2016',
+           key = year,
+           value = Return,
+           na.rm = T)
+```
+```{r}
+stocks %>% 
+    complete(year, qtr)
+```
+```{r}
+treatment <- tribble(
+  ~ person,           ~treatment, ~response,
+  "Derrick Whitmore", 1,          7,        
+  NA,                 2,          10,
+  NA,                 3,          9,
+  "Katherine Burke",  1,          4
+)
+```

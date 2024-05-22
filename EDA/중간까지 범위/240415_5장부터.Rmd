@@ -1,0 +1,265 @@
+---
+title: "240415-5장부터"
+author: "215083 박재석"
+date: "`r Sys.Date()`"
+output: html_document
+editor_options: 
+  markdown: 
+    wrap: sentence
+---
+
+```         
+[변동]
+범주형: 막대그래프, 상자그림
+연속형: 산점도, 상자그림, 히스토그램
+
+[공변]
+두 범주형 관게
+두 연속형 관계
+범주형 변수에 따른 연속형 관계
+```
+
+## 5.3변동
+
+변수각 범주형인지, 연속형인지 변수의 유형을 구별해야한다.
+
+#### 준비
+
+```{r message=FALSE}
+library(tidyverse)
+```
+
+```{r eval=FALSE, include=FALSE}
+diamonds
+```
+
+티블 데이터 
+
+#### 막대 그래프 만들기
+
+```{r}
+ggplot(diamonds)+
+    geom_bar(mapping = aes(x=cut))
+```
+
+막대의 높이: 각각 범주의 관측치
+
+```{r}
+diamonds %>% 
+     count(cut)
+```
+
+수치로 확인 가능 
+
+#### 연속형 변수
+
+```{r}
+ggplot(diamonds)+
+    geom_histogram(aes(x=carat))
+```
+
+binwidth를 설정하지 않음
+
+```{r}
+ggplot(diamonds)+
+    geom_histogram(aes(x=carat), binwidth = 0.5)
+```
+
+binwidth인수로 히스토그램 간격의 폭을 설정하 수 있다.
+인수를 바꿔가며 어느정도가 설명하기 적당한지 적절히 조절할 필요가 있다.
+
+```{r}
+diamonds %>% 
+    count(cut_width(carat, 0.5))
+```
+
+count와 cut_width를 같이 이용하여 간격 내에 빈도를 볼 수 있다
+
+##### 3캐럿 미만 다이아몬드만 가지고 옴
+
+```{r}
+diamonds %>% 
+    filter(carat<3) %>% 
+    ggplot(aes(x=carat))+
+    geom_histogram(binwidth = 0.1)
+```
+
+덩어리로 빈도수를 본다는 것에 의미가 있다.
+
+#### 각 변주형 변수에 따라 연속형 변수들을 나타내는 geom_freqpoly
+
+```{r}
+diamonds %>% 
+    filter(carat<3) %>% 
+    ggplot(aes(x=carat, color = cut))+
+    geom_freqpoly()
+```
+
+컷 별로 다른 색상으로 나타냄 히스토르램과 연산은 동일하나 선으로 표현됨.
+
+### 5.3.2 일반적인 값
+
+```{r}
+diamonds %>% 
+    filter(carat<3) %>% 
+    ggplot(aes(x=carat))+
+    geom_histogram(binwidth = 0.01)
+```
+
+세분화시킬 경우 왼쪽에 치우쳐있고, 많고 줄어드는 패턴을 볼 수 있다.
+히스토그램을 통해 여러 질문을 던질 수 있다.
+군집을 파악할 수 있다.
+
+#### faithful 데이터셋
+
+```         
+올드 페이스풀 온천에 발생한 272번의 화산 분출을 분 단위로 나타냄
+```
+
+```{r}
+faithful
+?faithful
+```
+
+두 면수 모두 연속형 변수
+
+```{r}
+ggplot(faithful, aes(x=eruptions))+
+    geom_histogram(binwidth = 0.25)
+```
+
+두 군집을 볼 수 있는데, 연속형 변수지만 두 군집으로 나눠 범주형 변수처럼 사영할 수 있다.
+
+```{r}
+range(faithful$eruptions)
+
+```
+
+간격을 설정할 때 range를 사용해 최소와 최대를 확인하여 참고할 수 있다.
+
+```{r}
+faithful %>% 
+    count(cut_width(eruptions))
+```
+
+### 5.3.3 이상값
+
+```{r}
+ggplot(diamonds)+
+    geom_histogram(mapping = aes(x=y), binwidth = 0.5) #Y 넓이이
+```
+
+비어있어 보이지만 값이 존재함
+
+```{r}
+ggplot(diamonds)+
+    geom_histogram(aes(x=y), binwidth = 0.5)+
+    coord_cartesian(ylim = c(0,50))
+```
+
+이상값 확인을 위해 cood_cartesian을 사용하여 y축 작은 값들을 확대함.
+#### 이상값 추출
+
+```{r}
+diamonds %>% 
+    filter(y<3|y>20) %>% 
+    select(price, x,y,z) %>% 
+    arrange(y) 
+```
+
+폭이 0이 될 수 없기 때문에 잘못된 값들이다.
+32mm와 59mm 값들도 타당해보이지 않는다.
+
+## 5.4 결측값
+
+```         
+[이상치를 처리하는 방법법]
+1. 제거: 제거한 사실을 밝혀야한다(입력오류인지, 이상치인지 밝혀야한다. )
+2. 평균으로 대체
+3. NA로 대체하여 표기해 이상치임을 표현현
+```
+
+-   이상값이 포함된 헹 전체를 삭제한다.
+
+```{r}
+diamonds %>% 
+    filter(between(y,3,20))
+```
+
+between을 활용하여 사이값만 가지고옴옴
+
+-   이상값을 결측값으로 변경
+
+```{r}
+diamonds %>% 
+    mutate(y = ifelse(y<3|y>20,NA,y))
+
+```
+
+ifeles: True이면 두번째, False이면 세번째
+
+```{r}
+diamonds %>% 
+    mutate(y = ifelse(y<3|y>20,NA,y)) %>% 
+    arrange(y) %>% #결측치가 가장 아래로 감.
+    ggplot(aes(x=y))+
+    geom_histogram(binwidth = 0.5, na.rm = T)+
+    coord_cartesian(ylim = c(0,50))
+
+```
+
+결측치 없음.
+
+```{r}
+diamonds %>% 
+    mutate(y<3|y>20,NA,y)
+```
+
+ifeles를 사용하지 않고도 할 수 있다.
+
+##### 결측치 포함 시각화
+
+```{r}
+diamonds %>% 
+    mutate(y = ifelse(y<3|y>20,NA,y)) %>% 
+    ggplot(aes(x=x,y=y))+
+    geom_point()
+
+```
+
+결측치를 자동으로 제거해 경고가 뜸.
+
+```{r}
+diamonds %>% 
+    mutate(y = ifelse(y<3|y>20,NA,y)) %>% 
+    ggplot(aes(x=x,y=y))+
+    geom_point(na.rm = T)
+
+```
+
+경고문 안뜸.
+
+##### 결측값과 기록된 값의 차이를 만드는 것이 무엇인지 확인하기.
+
+-   취소된 비행기의 예정 출발 시간과 취소되지 않은 비행기의 출발시간 비교
+
+```{r}
+library(nycflights13)
+```
+
+```{r}
+flights %>% 
+    mutate(cancelled = is.na(dep_time),
+           sched_hour = sched_dep_time %/% 100, #모듈러 연산자: 몫을 반환환
+           sched_min = sched_dep_time%% 100, # 나머지를 반환환
+           sched_dep_time = sched_hour + sched_min/60) %>% 
+    ggplot(aes(sched_dep_time))+
+    geom_freqpoly(aes(color = cancelled),
+                  binwidth =1/4)
+```
+
+취소된 항공편보다 취소되지 않은 항공편이 더 많으므로 유용하지 않음.
+
+ 
+
+

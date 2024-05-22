@@ -1,0 +1,4025 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={기술통계 정리},
+  pdfauthor={215083 박재석},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{기술통계 정리}
+\author{215083 박재석}
+\date{2024-04-21}
+
+\begin{document}
+\maketitle
+
+\hypertarget{uxc6ccuxd0b9-uxb514uxb809uxd1a0uxb9ac-uxd655uxc778}{%
+\paragraph{워킹 디렉토리
+확인}\label{uxc6ccuxd0b9-uxb514uxb809uxd1a0uxb9ac-uxd655uxc778}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{getwd}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "C:/Users/nrtak/Documents/Rstudy/R_EDA/EDA"
+\end{verbatim}
+
+\hypertarget{csv-uxd30cuxc77c-uxbd88uxb7ecuxc624uxae30}{%
+\paragraph{csv 파일
+불러오기}\label{csv-uxd30cuxc77c-uxbd88uxb7ecuxc624uxae30}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#인적자원기업 패널데이터}
+\NormalTok{rr1 }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"r\_stat.csv"}\NormalTok{,}
+                \AttributeTok{stringsAsFactors =}\NormalTok{ T,   }\CommentTok{\#문자열 펙터로 저장}
+                \AttributeTok{fileEncoding =} \StringTok{"euc{-}kr"}\NormalTok{)}\CommentTok{\#인코딩 방식 지정}
+\FunctionTok{str}\NormalTok{(rr1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    3430 obs. of  6 variables:
+##  $ 연간소득 : int  10000 6000 7200 3300 4100 10000 11000 6000 NA 5900 ...
+##  $ 직급1    : Factor w/ 8 levels "과장급","대리급",..: 8 2 1 7 1 8 8 2 8 2 ...
+##  $ 자격증   : Factor w/ 2 levels "아니오","예": 1 1 1 1 1 2 1 2 1 1 ...
+##  $ 성별1    : Factor w/ 2 levels "남","여": 1 1 1 2 1 1 1 2 2 1 ...
+##  $ 혼인상태1: Factor w/ 3 levels "기혼","미혼",..: 1 2 1 1 1 1 1 2 1 1 ...
+##  $ 최종학력1: Factor w/ 8 levels "4년제졸","공고졸",..: 1 1 1 1 1 3 1 1 7 1 ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#결측치 제거 }
+\NormalTok{x1 }\OtherTok{\textless{}{-}} \FunctionTok{na.omit}\NormalTok{(rr1}\SpecialCharTok{$}\NormalTok{연간소득)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{uxc591uxc801uxc790uxb8cc-uxc5f0uxc18duxd615-uxbcc0uxc218}{%
+\subsection{양적자료 (연속형
+변수)}\label{uxc591uxc801uxc790uxb8cc-uxc5f0uxc18duxd615-uxbcc0uxc218}}
+
+\hypertarget{uxc790uxb8ccuxc758-uxc911uxc2ecuxc704uxce58uxb97c-uxb098uxd0c0uxb0b4uxb294-uxb300uxd45cuxac12}{%
+\subsubsection{자료의 중심위치를 나타내는
+대표값}\label{uxc790uxb8ccuxc758-uxc911uxc2ecuxc704uxce58uxb97c-uxb098uxd0c0uxb0b4uxb294-uxb300uxd45cuxac12}}
+
+\hypertarget{uxd3c9uxade0}{%
+\paragraph{1. 평균}\label{uxd3c9uxade0}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(x1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4708.947
+\end{verbatim}
+
+\hypertarget{uxc911uxc704uxc218}{%
+\paragraph{2. 중위수}\label{uxc911uxc704uxc218}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{median}\NormalTok{(x1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4300
+\end{verbatim}
+
+\hypertarget{uxcd5cuxbe48uxc218}{%
+\paragraph{3. 최빈수}\label{uxcd5cuxbe48uxc218}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#최빈수 구하기 }
+\NormalTok{x }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{3}\NormalTok{)}
+\NormalTok{xx }\OtherTok{\textless{}{-}} \FunctionTok{unique}\NormalTok{(x) }\CommentTok{\#중복되지 않는 값만 추출 }
+\FunctionTok{match}\NormalTok{(x,xx)     }\CommentTok{\#위치가 동일한 벡터 찾음 }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1 2 3 3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{xx[}\FunctionTok{which.max}\NormalTok{(}\FunctionTok{tabulate}\NormalTok{(}\FunctionTok{match}\NormalTok{(x,xx)))]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3
+\end{verbatim}
+
+unique(), match(), which.max()를 사용해 최빈수를 찾을 수 있다. \#\#\#\#
+최빈수구하기-함수 구현
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{MODE }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(t)\{}
+\NormalTok{    tt }\OtherTok{\textless{}{-}} \FunctionTok{unique}\NormalTok{(t)}
+\NormalTok{    tt[}\FunctionTok{which.max}\NormalTok{(}\FunctionTok{tabulate}\NormalTok{(}\FunctionTok{match}\NormalTok{(t,tt)))]}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{MODE}\NormalTok{(x1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 4000
+\end{verbatim}
+
+\hypertarget{uxcd5cuxc18c-1uxc0acuxbd84uxc704-uxc911uxc704-uxd3c9uxade0-3uxc0acuxbd84uxc704-uxcd5cuxb300}{%
+\paragraph{4. 최소, 1사분위, 중위, 평균, 3사분위,
+최대}\label{uxcd5cuxc18c-1uxc0acuxbd84uxc704-uxc911uxc704-uxd3c9uxade0-3uxc0acuxbd84uxc704-uxcd5cuxb300}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(x1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##    1350    3250    4300    4709    5700   15000
+\end{verbatim}
+
+\hypertarget{uxc790uxb8ccuxc758-uxd37cuxc9d0-uxc815uxb3c4uxb97c-uxb098uxd0c0uxb0b4uxb294-uxac12}{%
+\subsubsection{자료의 퍼짐 정도를 나타내는
+값}\label{uxc790uxb8ccuxc758-uxd37cuxc9d0-uxc815uxb3c4uxb97c-uxb098uxd0c0uxb0b4uxb294-uxac12}}
+
+\hypertarget{uxbd84uxc0b0}{%
+\paragraph{1. 분산}\label{uxbd84uxc0b0}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{var}\NormalTok{(x1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3913216
+\end{verbatim}
+
+\hypertarget{uxd45cuxc900uxd3b8uxcc28}{%
+\paragraph{2. 표준편차}\label{uxd45cuxc900uxd3b8uxcc28}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{sd}\NormalTok{(x1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1978.185
+\end{verbatim}
+
+\hypertarget{uxbc94uxc704}{%
+\paragraph{3. 범위}\label{uxbc94uxc704}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\FunctionTok{max}\NormalTok{(x1))           }\CommentTok{\#최대 }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 15000
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\FunctionTok{min}\NormalTok{(x1))           }\CommentTok{\#최소}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1350
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\FunctionTok{max}\NormalTok{(x1)}\SpecialCharTok{{-}}\FunctionTok{min}\NormalTok{(x1))   }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 13650
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\FunctionTok{range}\NormalTok{(x1))         }\CommentTok{\#범위 }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]  1350 15000
+\end{verbatim}
+
+\hypertarget{uxc0acuxbd84uxc704uxc218-uxbc94uxc704}{%
+\paragraph{4. 사분위수
+범위}\label{uxc0acuxbd84uxc704uxc218-uxbc94uxc704}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{quantile}\NormalTok{(x1, }\FloatTok{0.25}\NormalTok{)  }\CommentTok{\#1사분위수}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  25% 
+## 3250
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{quantile}\NormalTok{(x1, }\FloatTok{0.75}\NormalTok{)  }\CommentTok{\#3사분위수}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  75% 
+## 5700
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{IQR}\NormalTok{(x1)             }\CommentTok{\#4분위수 범위=3사분위 {-} 1사분위 }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2450
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{quantile}\NormalTok{(x1, }\FloatTok{0.75}\NormalTok{)}\SpecialCharTok{{-}}\FunctionTok{quantile}\NormalTok{(x1, }\FloatTok{0.25}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  75% 
+## 2450
+\end{verbatim}
+
+\hypertarget{uxc2dcuxac01uxd654}{%
+\subsubsection{시각화}\label{uxc2dcuxac01uxd654}}
+
+\hypertarget{uxc810uxb3c4uxd45c}{%
+\paragraph{1. 점도표}\label{uxc810uxb3c4uxd45c}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dotchart}\NormalTok{(r}\SpecialCharTok{$}\NormalTok{lifemoney, }\AttributeTok{label =} \FunctionTok{row.names}\NormalTok{(r))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{{[}중간고사정리{]}기술통계_files/figure-latex/unnamed-chunk-16-1.pdf}
+
+\hypertarget{uxd788uxc2a4uxd1a0uxadf8uxb7a8}{%
+\paragraph{2. 히스토그램}\label{uxd788uxc2a4uxd1a0uxadf8uxb7a8}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{hist}\NormalTok{(rr}\SpecialCharTok{$}\NormalTok{money,}\AttributeTok{xlab =} \StringTok{"연봉"}\NormalTok{,}\AttributeTok{ylab =} \StringTok{"계급의 빈도수"}\NormalTok{,}
+     \AttributeTok{main=}\StringTok{"연봉의 히스그램"}\NormalTok{,}
+     \AttributeTok{border =} \StringTok{"blue"}\NormalTok{,}\CommentTok{\#  \#테두리 색 }
+     \AttributeTok{col =} \StringTok{"red"}\NormalTok{,}\CommentTok{\#      }
+     \AttributeTok{breaks =} \DecValTok{14}\NormalTok{,}\CommentTok{\#      \#계급의 개수 }
+     \AttributeTok{freq =}\NormalTok{ F)}\CommentTok{\#         \#비율 표현(False: 비율. True: 빈도 수 )}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉의 히스그램' in 'mbcsToSbcs': dot substituted for
+## <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉의 히스그램' in 'mbcsToSbcs': dot substituted for
+## <97>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉의 히스그램' in 'mbcsToSbcs': dot substituted for
+## <b0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉의 히스그램' in 'mbcsToSbcs': dot substituted for
+## <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉의 히스그램' in 'mbcsToSbcs': dot substituted for
+## <b4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉의 히스그램' in 'mbcsToSbcs': dot substituted for
+## <89>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉의 히스그램' in 'mbcsToSbcs': dot substituted for
+## <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉의 히스그램' in 'mbcsToSbcs': dot substituted for
+## <9d>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉의 히스그램' in 'mbcsToSbcs': dot substituted for
+## <98>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉의 히스그램' in 'mbcsToSbcs': dot substituted for
+## <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉의 히스그램' in 'mbcsToSbcs': dot substituted for
+## <9e>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉의 히스그램' in 'mbcsToSbcs': dot substituted for
+## <88>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉의 히스그램' in 'mbcsToSbcs': dot substituted for
+## <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉의 히스그램' in 'mbcsToSbcs': dot substituted for
+## <8a>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉의 히스그램' in 'mbcsToSbcs': dot substituted for
+## <a4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉의 히스그램' in 'mbcsToSbcs': dot substituted for
+## <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉의 히스그램' in 'mbcsToSbcs': dot substituted for
+## <b7>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉의 히스그램' in 'mbcsToSbcs': dot substituted for
+## <b8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉의 히스그램' in 'mbcsToSbcs': dot substituted for
+## <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉의 히스그램' in 'mbcsToSbcs': dot substituted for
+## <9e>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉의 히스그램' in 'mbcsToSbcs': dot substituted for
+## <a8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉' in 'mbcsToSbcs': dot substituted for <97>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉' in 'mbcsToSbcs': dot substituted for <b0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉' in 'mbcsToSbcs': dot substituted for <b4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '연봉' in 'mbcsToSbcs': dot substituted for <89>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '계급의 빈도수' in 'mbcsToSbcs': dot substituted for <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '계급의 빈도수' in 'mbcsToSbcs': dot substituted for <b3>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '계급의 빈도수' in 'mbcsToSbcs': dot substituted for <84>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '계급의 빈도수' in 'mbcsToSbcs': dot substituted for <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '계급의 빈도수' in 'mbcsToSbcs': dot substituted for <b8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '계급의 빈도수' in 'mbcsToSbcs': dot substituted for <89>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '계급의 빈도수' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '계급의 빈도수' in 'mbcsToSbcs': dot substituted for <9d>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '계급의 빈도수' in 'mbcsToSbcs': dot substituted for <98>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '계급의 빈도수' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '계급의 빈도수' in 'mbcsToSbcs': dot substituted for <b9>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '계급의 빈도수' in 'mbcsToSbcs': dot substituted for <88>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '계급의 빈도수' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '계급의 빈도수' in 'mbcsToSbcs': dot substituted for <8f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '계급의 빈도수' in 'mbcsToSbcs': dot substituted for <84>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '계급의 빈도수' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '계급의 빈도수' in 'mbcsToSbcs': dot substituted for <88>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '계급의 빈도수' in 'mbcsToSbcs': dot substituted for <98>
+\end{verbatim}
+
+\includegraphics{{[}중간고사정리{]}기술통계_files/figure-latex/unnamed-chunk-17-1.pdf}
+
+\hypertarget{uxc0c1uxc790uxadf8uxb9bc}{%
+\paragraph{3. 상자그림}\label{uxc0c1uxc790uxadf8uxb9bc}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(rr,}\FunctionTok{aes}\NormalTok{(study1,money))}\SpecialCharTok{+}
+    \FunctionTok{geom\_boxplot}\NormalTok{(}\AttributeTok{fill=}\FunctionTok{rainbow}\NormalTok{(}\DecValTok{8}\NormalTok{))}\SpecialCharTok{+}
+    \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"박스 플롯"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <a4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <91>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <95>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <99>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <b5>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <90>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <a4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <91>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <87>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <b4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <a4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <91>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <95>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <99>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <b5>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <90>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <a1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <b8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <97>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <85>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <b3>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <a0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <93>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <95>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <99>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <b5>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <90>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <a4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <91>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <87>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <b4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <b3>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <a0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <93>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <95>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <99>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <b5>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <90>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <a1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <b8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <97>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <85>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <a0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <84>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <ac>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <b8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <8c>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <80>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '대졸' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '대졸' in 'mbcsToSbcs': dot substituted for <8c>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '대졸' in 'mbcsToSbcs': dot substituted for <80>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '대졸' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '대졸' in 'mbcsToSbcs': dot substituted for <a1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '대졸' in 'mbcsToSbcs': dot substituted for <b8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '석사' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '석사' in 'mbcsToSbcs': dot substituted for <84>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '석사' in 'mbcsToSbcs': dot substituted for <9d>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '석사' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '석사' in 'mbcsToSbcs': dot substituted for <82>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '석사' in 'mbcsToSbcs': dot substituted for <ac>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박사' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박사' in 'mbcsToSbcs': dot substituted for <b0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박사' in 'mbcsToSbcs': dot substituted for <95>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박사' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박사' in 'mbcsToSbcs': dot substituted for <82>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박사' in 'mbcsToSbcs': dot substituted for <ac>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박스 플롯' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박스 플롯' in 'mbcsToSbcs': dot substituted for <b0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박스 플롯' in 'mbcsToSbcs': dot substituted for <95>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박스 플롯' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박스 플롯' in 'mbcsToSbcs': dot substituted for <8a>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박스 플롯' in 'mbcsToSbcs': dot substituted for <a4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박스 플롯' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박스 플롯' in 'mbcsToSbcs': dot substituted for <94>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박스 플롯' in 'mbcsToSbcs': dot substituted for <8c>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박스 플롯' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박스 플롯' in 'mbcsToSbcs': dot substituted for <a1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박스 플롯' in 'mbcsToSbcs': dot substituted for <af>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <a4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <91>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <95>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <99>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <b5>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <90>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <a4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <91>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <87>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <b4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <a4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <91>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <95>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <99>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <b5>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <90>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <a1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <b8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <97>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <85>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <b3>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <a0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <93>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <95>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <99>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <b5>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <90>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <a4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <91>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <87>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <b4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <b3>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <a0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <93>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <95>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <99>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <b5>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <90>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <a1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <b8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <97>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <85>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <a0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <84>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <ac>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <b8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <8c>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <80>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '대졸' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '대졸' in 'mbcsToSbcs': dot substituted for <8c>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '대졸' in 'mbcsToSbcs': dot substituted for <80>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '대졸' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '대졸' in 'mbcsToSbcs': dot substituted for <a1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '대졸' in 'mbcsToSbcs': dot substituted for <b8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '석사' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '석사' in 'mbcsToSbcs': dot substituted for <84>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '석사' in 'mbcsToSbcs': dot substituted for <9d>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '석사' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '석사' in 'mbcsToSbcs': dot substituted for <82>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '석사' in 'mbcsToSbcs': dot substituted for <ac>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박사' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박사' in 'mbcsToSbcs': dot substituted for <b0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박사' in 'mbcsToSbcs': dot substituted for <95>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박사' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박사' in 'mbcsToSbcs': dot substituted for <82>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박사' in 'mbcsToSbcs': dot substituted for <ac>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박스 플롯' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박스 플롯' in 'mbcsToSbcs': dot substituted for <b0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박스 플롯' in 'mbcsToSbcs': dot substituted for <95>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박스 플롯' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박스 플롯' in 'mbcsToSbcs': dot substituted for <8a>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박스 플롯' in 'mbcsToSbcs': dot substituted for <a4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박스 플롯' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박스 플롯' in 'mbcsToSbcs': dot substituted for <94>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박스 플롯' in 'mbcsToSbcs': dot substituted for <8c>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박스 플롯' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박스 플롯' in 'mbcsToSbcs': dot substituted for <a1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박스 플롯' in 'mbcsToSbcs': dot substituted for <af>
+\end{verbatim}
+
+\includegraphics{{[}중간고사정리{]}기술통계_files/figure-latex/unnamed-chunk-18-1.pdf}
+
+\hypertarget{uxc9c8uxc801uxc790uxb8ccuxbc94uxc8fcuxd615-uxbcc0uxc218}{%
+\subsection{질적자료(범주형
+변수)}\label{uxc9c8uxc801uxc790uxb8ccuxbc94uxc8fcuxd615-uxbcc0uxc218}}
+
+\hypertarget{uxbe48uxb3c4uxbd84uxc11d}{%
+\subsubsection{빈도분석}\label{uxbe48uxb3c4uxbd84uxc11d}}
+
+\hypertarget{uxb3c4uxc218uxbd84uxd3ecuxd45c}{%
+\paragraph{1. 도수분포표}\label{uxb3c4uxc218uxbd84uxd3ecuxd45c}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\FunctionTok{table}\NormalTok{(rr1}\SpecialCharTok{$}\NormalTok{성별1))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##   남   여 
+## 2571  859
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\FunctionTok{table}\NormalTok{(rr1}\SpecialCharTok{$}\NormalTok{자격증))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## 아니오     예 
+##   2520    910
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\FunctionTok{table}\NormalTok{(rr1}\SpecialCharTok{$}\NormalTok{직급1))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##        과장급        대리급        부장급        사원급 생산직 반장급 
+##           570           621           318           930           147 
+##        임원급     주임/계장        차장급 
+##            68           315           459
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(}\FunctionTok{table}\NormalTok{(rr1}\SpecialCharTok{$}\NormalTok{혼인상태1))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## 기혼 미혼 이혼 
+## 2176 1214   31
+\end{verbatim}
+
+\hypertarget{uxb9c9uxb300uxb3c4uxd45c}{%
+\paragraph{2. 막대도표}\label{uxb9c9uxb300uxb3c4uxd45c}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{a }\OtherTok{\textless{}{-}} \FunctionTok{table}\NormalTok{(rr1}\SpecialCharTok{$}\NormalTok{성별1)}
+\FunctionTok{barplot}\NormalTok{(a, }\AttributeTok{xlab=}\StringTok{"성별"}\NormalTok{, }\AttributeTok{ylab=}\StringTok{"빈도"}\NormalTok{, }\AttributeTok{main=}\StringTok{"성별 막대도표"}\NormalTok{,}
+        \AttributeTok{col =} \FunctionTok{c}\NormalTok{(}\StringTok{"blue"}\NormalTok{,}\StringTok{"red"}\NormalTok{),  }\CommentTok{\#색 설정}
+        \AttributeTok{horiz=}\NormalTok{T,                }\CommentTok{\#방향 전환 }
+        \AttributeTok{names=}\FunctionTok{c}\NormalTok{(}\StringTok{"남자"}\NormalTok{,}\StringTok{"여자"}\NormalTok{),}
+        \AttributeTok{las=}\DecValTok{1}\NormalTok{,                  }\CommentTok{\#글자 방향 (0\textasciitilde{}3까지 지정 가능)}
+        \AttributeTok{legend.text=}\NormalTok{T)          }\CommentTok{\#범례 표시}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in axis(if (horiz) 2 else 1, at = at.l, labels = names.arg, lty =
+## axis.lty, : conversion failure on '남자' in 'mbcsToSbcs': dot substituted for
+## <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in axis(if (horiz) 2 else 1, at = at.l, labels = names.arg, lty =
+## axis.lty, : conversion failure on '남자' in 'mbcsToSbcs': dot substituted for
+## <82>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in axis(if (horiz) 2 else 1, at = at.l, labels = names.arg, lty =
+## axis.lty, : conversion failure on '남자' in 'mbcsToSbcs': dot substituted for
+## <a8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in axis(if (horiz) 2 else 1, at = at.l, labels = names.arg, lty =
+## axis.lty, : conversion failure on '남자' in 'mbcsToSbcs': dot substituted for
+## <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in axis(if (horiz) 2 else 1, at = at.l, labels = names.arg, lty =
+## axis.lty, : conversion failure on '남자' in 'mbcsToSbcs': dot substituted for
+## <9e>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in axis(if (horiz) 2 else 1, at = at.l, labels = names.arg, lty =
+## axis.lty, : conversion failure on '남자' in 'mbcsToSbcs': dot substituted for
+## <90>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in axis(if (horiz) 2 else 1, at = at.l, labels = names.arg, lty =
+## axis.lty, : conversion failure on '여자' in 'mbcsToSbcs': dot substituted for
+## <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in axis(if (horiz) 2 else 1, at = at.l, labels = names.arg, lty =
+## axis.lty, : conversion failure on '여자' in 'mbcsToSbcs': dot substituted for
+## <97>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in axis(if (horiz) 2 else 1, at = at.l, labels = names.arg, lty =
+## axis.lty, : conversion failure on '여자' in 'mbcsToSbcs': dot substituted for
+## <ac>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in axis(if (horiz) 2 else 1, at = at.l, labels = names.arg, lty =
+## axis.lty, : conversion failure on '여자' in 'mbcsToSbcs': dot substituted for
+## <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in axis(if (horiz) 2 else 1, at = at.l, labels = names.arg, lty =
+## axis.lty, : conversion failure on '여자' in 'mbcsToSbcs': dot substituted for
+## <9e>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in axis(if (horiz) 2 else 1, at = at.l, labels = names.arg, lty =
+## axis.lty, : conversion failure on '여자' in 'mbcsToSbcs': dot substituted for
+## <90>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL,
+## : conversion failure on '여' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL,
+## : conversion failure on '여' in 'mbcsToSbcs': dot substituted for <97>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL,
+## : conversion failure on '여' in 'mbcsToSbcs': dot substituted for <ac>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL,
+## : conversion failure on '남' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL,
+## : conversion failure on '남' in 'mbcsToSbcs': dot substituted for <82>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL,
+## : conversion failure on '남' in 'mbcsToSbcs': dot substituted for <a8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in text.default(x, y, ...): conversion failure on '여' in 'mbcsToSbcs':
+## dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in text.default(x, y, ...): conversion failure on '여' in 'mbcsToSbcs':
+## dot substituted for <97>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in text.default(x, y, ...): conversion failure on '여' in 'mbcsToSbcs':
+## dot substituted for <ac>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in text.default(x, y, ...): conversion failure on '남' in 'mbcsToSbcs':
+## dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in text.default(x, y, ...): conversion failure on '남' in 'mbcsToSbcs':
+## dot substituted for <82>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in text.default(x, y, ...): conversion failure on '남' in 'mbcsToSbcs':
+## dot substituted for <a8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '성별 막대도표' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '성별 막대도표' in 'mbcsToSbcs': dot substituted for <84>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '성별 막대도표' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '성별 막대도표' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '성별 막대도표' in 'mbcsToSbcs': dot substituted for <b3>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '성별 막대도표' in 'mbcsToSbcs': dot substituted for <84>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '성별 막대도표' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '성별 막대도표' in 'mbcsToSbcs': dot substituted for <a7>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '성별 막대도표' in 'mbcsToSbcs': dot substituted for <89>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '성별 막대도표' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '성별 막대도표' in 'mbcsToSbcs': dot substituted for <8c>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '성별 막대도표' in 'mbcsToSbcs': dot substituted for <80>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '성별 막대도표' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '성별 막대도표' in 'mbcsToSbcs': dot substituted for <8f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '성별 막대도표' in 'mbcsToSbcs': dot substituted for <84>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '성별 막대도표' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '성별 막대도표' in 'mbcsToSbcs': dot substituted for <91>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '성별 막대도표' in 'mbcsToSbcs': dot substituted for <9c>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '성별' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '성별' in 'mbcsToSbcs': dot substituted for <84>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '성별' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '성별' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '성별' in 'mbcsToSbcs': dot substituted for <b3>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '성별' in 'mbcsToSbcs': dot substituted for <84>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '빈도' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '빈도' in 'mbcsToSbcs': dot substituted for <b9>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '빈도' in 'mbcsToSbcs': dot substituted for <88>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '빈도' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '빈도' in 'mbcsToSbcs': dot substituted for <8f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...):
+## conversion failure on '빈도' in 'mbcsToSbcs': dot substituted for <84>
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{legend}\NormalTok{(}\StringTok{"topright"}\NormalTok{,              }\CommentTok{\#범례 설정}
+       \AttributeTok{legend =} \FunctionTok{c}\NormalTok{(}\StringTok{"남자"}\NormalTok{,}\StringTok{"여자"}\NormalTok{),}
+       \AttributeTok{fill =} \FunctionTok{rainbow}\NormalTok{(}\DecValTok{2}\NormalTok{))       }\CommentTok{\#범례 색 설정}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL,
+## : conversion failure on '남자' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL,
+## : conversion failure on '남자' in 'mbcsToSbcs': dot substituted for <82>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL,
+## : conversion failure on '남자' in 'mbcsToSbcs': dot substituted for <a8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL,
+## : conversion failure on '남자' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL,
+## : conversion failure on '남자' in 'mbcsToSbcs': dot substituted for <9e>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL,
+## : conversion failure on '남자' in 'mbcsToSbcs': dot substituted for <90>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL,
+## : conversion failure on '여자' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL,
+## : conversion failure on '여자' in 'mbcsToSbcs': dot substituted for <97>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL,
+## : conversion failure on '여자' in 'mbcsToSbcs': dot substituted for <ac>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL,
+## : conversion failure on '여자' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL,
+## : conversion failure on '여자' in 'mbcsToSbcs': dot substituted for <9e>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in (function (s, units = "user", cex = NULL, font = NULL, vfont = NULL,
+## : conversion failure on '여자' in 'mbcsToSbcs': dot substituted for <90>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in text.default(x, y, ...): conversion failure on '남자' in
+## 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in text.default(x, y, ...): conversion failure on '남자' in
+## 'mbcsToSbcs': dot substituted for <82>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in text.default(x, y, ...): conversion failure on '남자' in
+## 'mbcsToSbcs': dot substituted for <a8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in text.default(x, y, ...): conversion failure on '남자' in
+## 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in text.default(x, y, ...): conversion failure on '남자' in
+## 'mbcsToSbcs': dot substituted for <9e>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in text.default(x, y, ...): conversion failure on '남자' in
+## 'mbcsToSbcs': dot substituted for <90>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in text.default(x, y, ...): conversion failure on '여자' in
+## 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in text.default(x, y, ...): conversion failure on '여자' in
+## 'mbcsToSbcs': dot substituted for <97>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in text.default(x, y, ...): conversion failure on '여자' in
+## 'mbcsToSbcs': dot substituted for <ac>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in text.default(x, y, ...): conversion failure on '여자' in
+## 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in text.default(x, y, ...): conversion failure on '여자' in
+## 'mbcsToSbcs': dot substituted for <9e>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in text.default(x, y, ...): conversion failure on '여자' in
+## 'mbcsToSbcs': dot substituted for <90>
+\end{verbatim}
+
+\includegraphics{{[}중간고사정리{]}기술통계_files/figure-latex/unnamed-chunk-23-1.pdf}
+
+\hypertarget{uxd30cuxc774uxcc28uxd2b8}{%
+\paragraph{3. 파이차트}\label{uxd30cuxc774uxcc28uxd2b8}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# 설명 변수에 레이블 추가 }
+
+\NormalTok{rr}\SpecialCharTok{$}\NormalTok{gender1 }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(rr}\SpecialCharTok{$}\NormalTok{gender, }
+                     \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}
+                     \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"남"}\NormalTok{,}\StringTok{"여"}\NormalTok{))}
+\FunctionTok{str}\NormalTok{(rr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 'data.frame':    300 obs. of  9 variables:
+##  $ gender   : int  2 1 2 1 2 1 2 1 2 2 ...
+##  $ age      : int  57 47 36 28 24 72 74 26 80 44 ...
+##  $ money    : int  1680 0 2880 -1 1200 1020 0 1440 480 720 ...
+##  $ baby     : int  2 2 2 2 2 2 2 2 2 2 ...
+##  $ lifemoney: int  60 100 30 100 40 70 16 100 200 40 ...
+##  $ study    : int  4 5 5 7 6 4 2 6 2 2 ...
+##  $ gender1  : Factor w/ 2 levels "남","여": 2 1 2 1 2 1 2 1 2 2 ...
+##  $ study1   : Factor w/ 8 levels "중학교중퇴","중학교졸업",..: 3 4 4 6 5 3 1 5 1 1 ...
+##  $ baby1    : Factor w/ 2 levels "예","아니오": 2 2 2 2 2 2 2 2 2 2 ...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(rr, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\StringTok{""}\NormalTok{,}\AttributeTok{y=}\NormalTok{rr}\SpecialCharTok{$}\NormalTok{money,}\AttributeTok{fill=}\NormalTok{gender1))}\SpecialCharTok{+}
+    \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{stat =} \StringTok{"identity"}\NormalTok{,}
+             \AttributeTok{width =} \DecValTok{1}\NormalTok{)}\SpecialCharTok{+}
+    \FunctionTok{coord\_polar}\NormalTok{(}\AttributeTok{theta =} \StringTok{"y"}\NormalTok{)}\SpecialCharTok{+}
+    \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"파이차트"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{{[}중간고사정리{]}기술통계_files/figure-latex/unnamed-chunk-26-1.pdf}
+
+파이차트를 그릴때는 먼저 막대도표로 만든 후 coord\_polar를 이용해
+극좌표계로 변환한다.
+
+\hypertarget{uxb204uxc801uxb3c4uxd45c}{%
+\paragraph{4. 누적도표}\label{uxb204uxc801uxb3c4uxd45c}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rr}\SpecialCharTok{$}\NormalTok{study1 }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(rr}\SpecialCharTok{$}\NormalTok{study,}
+                    \AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{,}\DecValTok{3}\NormalTok{,}\DecValTok{4}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{7}\NormalTok{,}\DecValTok{8}\NormalTok{,}\DecValTok{9}\NormalTok{),}
+                    \AttributeTok{labels=}\FunctionTok{c}\NormalTok{(}\StringTok{"중학교중퇴"}\NormalTok{,}\StringTok{"중학교졸업"}\NormalTok{,}\StringTok{"고등학교중퇴"}\NormalTok{,}\StringTok{"고등학교졸업"}\NormalTok{,}\StringTok{"전문대"}\NormalTok{,}\StringTok{"대졸"}\NormalTok{,}\StringTok{"석사"}\NormalTok{,}\StringTok{"박사"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(rr,}\FunctionTok{aes}\NormalTok{(study1))}\SpecialCharTok{+}
+    \FunctionTok{geom\_bar}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{fill=}\NormalTok{gender1),}\AttributeTok{colour=}\StringTok{"black"}\NormalTok{)}\SpecialCharTok{+} \CommentTok{\#테두리 색 지정 }
+    \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"누적막대 차트"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <a4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <91>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <95>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <99>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <b5>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <90>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <a4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <91>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <87>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <b4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <a4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <91>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <95>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <99>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <b5>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <90>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <a1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <b8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <97>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <85>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <b3>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <a0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <93>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <95>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <99>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <b5>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <90>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <a4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <91>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <87>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <b4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <b3>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <a0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <93>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <95>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <99>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <b5>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <90>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <a1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <b8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <97>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <85>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <a0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <84>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <ac>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <b8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <8c>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <80>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '대졸' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '대졸' in 'mbcsToSbcs': dot substituted for <8c>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '대졸' in 'mbcsToSbcs': dot substituted for <80>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '대졸' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '대졸' in 'mbcsToSbcs': dot substituted for <a1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '대졸' in 'mbcsToSbcs': dot substituted for <b8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '석사' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '석사' in 'mbcsToSbcs': dot substituted for <84>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '석사' in 'mbcsToSbcs': dot substituted for <9d>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '석사' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '석사' in 'mbcsToSbcs': dot substituted for <82>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '석사' in 'mbcsToSbcs': dot substituted for <ac>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박사' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박사' in 'mbcsToSbcs': dot substituted for <b0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박사' in 'mbcsToSbcs': dot substituted for <95>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박사' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박사' in 'mbcsToSbcs': dot substituted for <82>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박사' in 'mbcsToSbcs': dot substituted for <ac>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '남' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '남' in 'mbcsToSbcs': dot substituted for <82>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '남' in 'mbcsToSbcs': dot substituted for <a8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '여' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '여' in 'mbcsToSbcs': dot substituted for <97>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '여' in 'mbcsToSbcs': dot substituted for <ac>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '남' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '남' in 'mbcsToSbcs': dot substituted for <82>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '남' in 'mbcsToSbcs': dot substituted for <a8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '여' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '여' in 'mbcsToSbcs': dot substituted for <97>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '여' in 'mbcsToSbcs': dot substituted for <ac>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <88>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <84>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <a0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <81>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <a7>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <89>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <8c>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <80>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <b0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <a8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <8a>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <b8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <a4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <91>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <95>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <99>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <b5>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <90>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <a4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <91>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <87>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교중퇴' in 'mbcsToSbcs': dot substituted for <b4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <a4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <91>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <95>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <99>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <b5>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <90>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <a1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <b8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <97>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '중학교졸업' in 'mbcsToSbcs': dot substituted for <85>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <b3>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <a0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <93>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <95>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <99>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <b5>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <90>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <a4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <91>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <87>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교중퇴' in 'mbcsToSbcs': dot substituted for <b4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <b3>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <a0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <93>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <b1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <95>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <99>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <ea>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <b5>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <90>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <a1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <b8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <97>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '고등학교졸업' in 'mbcsToSbcs': dot substituted for <85>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <a0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <84>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <ac>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <b8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <8c>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '전문대' in 'mbcsToSbcs': dot substituted for <80>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '대졸' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '대졸' in 'mbcsToSbcs': dot substituted for <8c>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '대졸' in 'mbcsToSbcs': dot substituted for <80>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '대졸' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '대졸' in 'mbcsToSbcs': dot substituted for <a1>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '대졸' in 'mbcsToSbcs': dot substituted for <b8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '석사' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '석사' in 'mbcsToSbcs': dot substituted for <84>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '석사' in 'mbcsToSbcs': dot substituted for <9d>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '석사' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '석사' in 'mbcsToSbcs': dot substituted for <82>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '석사' in 'mbcsToSbcs': dot substituted for <ac>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박사' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박사' in 'mbcsToSbcs': dot substituted for <b0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박사' in 'mbcsToSbcs': dot substituted for <95>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박사' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박사' in 'mbcsToSbcs': dot substituted for <82>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '박사' in 'mbcsToSbcs': dot substituted for <ac>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '남' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '남' in 'mbcsToSbcs': dot substituted for <82>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '남' in 'mbcsToSbcs': dot substituted for <a8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '여' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '여' in 'mbcsToSbcs': dot substituted for <97>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '여' in 'mbcsToSbcs': dot substituted for <ac>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <88>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <84>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <a0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <81>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <a7>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <89>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <8c>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <80>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <b0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <a8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <8a>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '누적막대 차트' in 'mbcsToSbcs': dot substituted for <b8>
+\end{verbatim}
+
+\includegraphics{{[}중간고사정리{]}기술통계_files/figure-latex/unnamed-chunk-28-1.pdf}
+
+\hypertarget{uxb450-uxbcc0uxc218-uxc774uxc0c1}{%
+\subsection{두 변수 이상}\label{uxb450-uxbcc0uxc218-uxc774uxc0c1}}
+
+\hypertarget{uxb77cuxc778uxcc28uxd2b8}{%
+\paragraph{1. 라인차트}\label{uxb77cuxc778uxcc28uxd2b8}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{qplot}\NormalTok{(month, temporary, }\AttributeTok{data =}\NormalTok{ rrr, }
+      \AttributeTok{geom =} \StringTok{"line"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{{[}중간고사정리{]}기술통계_files/figure-latex/unnamed-chunk-30-1.pdf}
+
+\hypertarget{uxc0b0uxc810uxb3c4}{%
+\paragraph{2. 산점도}\label{uxc0b0uxc810uxb3c4}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rr}\SpecialCharTok{$}\NormalTok{baby1 }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(rr}\SpecialCharTok{$}\NormalTok{baby,}\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{2}\NormalTok{),}
+                   \AttributeTok{labels =} \FunctionTok{c}\NormalTok{(}\StringTok{"예"}\NormalTok{,}\StringTok{"아니오"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(rr, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x=}\NormalTok{lifemoney, }\AttributeTok{y=}\NormalTok{money, }\AttributeTok{colour=}\NormalTok{baby1))}\SpecialCharTok{+}
+    \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{shape=}\DecValTok{19}\NormalTok{,}\AttributeTok{size=}\DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '예' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '예' in 'mbcsToSbcs': dot substituted for <98>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '예' in 'mbcsToSbcs': dot substituted for <88>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <95>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <84>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <8b>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <88>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <98>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <a4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '예' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '예' in 'mbcsToSbcs': dot substituted for <98>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '예' in 'mbcsToSbcs': dot substituted for <88>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <95>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <84>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <8b>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <88>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <98>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <a4>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '예' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '예' in 'mbcsToSbcs': dot substituted for <98>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '예' in 'mbcsToSbcs': dot substituted for <88>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <95>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <84>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <8b>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <88>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <98>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '아니오' in 'mbcsToSbcs': dot substituted for <a4>
+\end{verbatim}
+
+\includegraphics{{[}중간고사정리{]}기술통계_files/figure-latex/unnamed-chunk-32-1.pdf}
+
+자녀의 유무에 따른 연봉과 생활비 산점도 + 산점도+라인
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(rr}\SpecialCharTok{$}\NormalTok{money,rr}\SpecialCharTok{$}\NormalTok{lifemoney)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{a=}\FloatTok{40.3791}\NormalTok{,}\AttributeTok{b=}\FloatTok{0.0336}\NormalTok{,}
+       \AttributeTok{col=}\StringTok{"red"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{{[}중간고사정리{]}기술통계_files/figure-latex/unnamed-chunk-33-1.pdf}
+
+\hypertarget{uxbc84uxbe14uxcc28uxd2b8}{%
+\paragraph{3. 버블차트}\label{uxbc84uxbe14uxcc28uxd2b8}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(rr, }\FunctionTok{aes}\NormalTok{(money,age))}\SpecialCharTok{+}
+    \FunctionTok{geom\_point}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{size=}\NormalTok{lifemoney),}
+               \AttributeTok{shape=}\DecValTok{21}\NormalTok{,}
+               \AttributeTok{colour=}\StringTok{"gray90"}\NormalTok{, }\AttributeTok{fill =} \StringTok{"green"}\NormalTok{,}
+               \AttributeTok{alpha=}\FloatTok{0.5}\NormalTok{)}\SpecialCharTok{+}
+    \FunctionTok{geom\_text}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{y=}\FunctionTok{as.numeric}\NormalTok{(age)}\SpecialCharTok{{-}}\FunctionTok{sqrt}\NormalTok{(lifemoney)}\SpecialCharTok{/}\DecValTok{10}\NormalTok{,}
+                  \AttributeTok{label=}\NormalTok{study),}
+              \AttributeTok{vjust=}\DecValTok{1}\NormalTok{,}
+              \AttributeTok{colour=}\StringTok{"gray40"}\NormalTok{,}
+              \AttributeTok{size=}\DecValTok{3}\NormalTok{)}\SpecialCharTok{+}
+    \FunctionTok{scale\_size\_area}\NormalTok{(}\AttributeTok{max\_size =} \DecValTok{15}\NormalTok{,}
+                    \AttributeTok{guide=}\StringTok{"none"}\NormalTok{)}\SpecialCharTok{+} \CommentTok{\#범례숨기기 }
+    \FunctionTok{ggtitle}\NormalTok{(}\StringTok{"버블차트"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '버블차트' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '버블차트' in 'mbcsToSbcs': dot substituted for <b2>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '버블차트' in 'mbcsToSbcs': dot substituted for <84>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '버블차트' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '버블차트' in 'mbcsToSbcs': dot substituted for <b8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '버블차트' in 'mbcsToSbcs': dot substituted for <94>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '버블차트' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '버블차트' in 'mbcsToSbcs': dot substituted for <b0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '버블차트' in 'mbcsToSbcs': dot substituted for <a8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '버블차트' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '버블차트' in 'mbcsToSbcs': dot substituted for <8a>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call(C_textBounds, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '버블차트' in 'mbcsToSbcs': dot substituted for <b8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '버블차트' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '버블차트' in 'mbcsToSbcs': dot substituted for <b2>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '버블차트' in 'mbcsToSbcs': dot substituted for <84>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '버블차트' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '버블차트' in 'mbcsToSbcs': dot substituted for <b8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '버블차트' in 'mbcsToSbcs': dot substituted for <94>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '버블차트' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '버블차트' in 'mbcsToSbcs': dot substituted for <b0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '버블차트' in 'mbcsToSbcs': dot substituted for <a8>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '버블차트' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '버블차트' in 'mbcsToSbcs': dot substituted for <8a>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in grid.Call.graphics(C_text, as.graphicsAnnot(x$label), x$x, x$y, :
+## conversion failure on '버블차트' in 'mbcsToSbcs': dot substituted for <b8>
+\end{verbatim}
+
+\includegraphics{{[}중간고사정리{]}기술통계_files/figure-latex/unnamed-chunk-34-1.pdf}
+
+버블차트는 세 변수간의 관계, 패턴을 강조한다. \#\#\#\# 4. 산점도행렬
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{rr0 }\OtherTok{\textless{}{-}}\NormalTok{ rr[}\FunctionTok{c}\NormalTok{(}\StringTok{"age"}\NormalTok{,}\StringTok{"money"}\NormalTok{,}\StringTok{"lifemoney"}\NormalTok{)] }\CommentTok{\#정량데이터만 출}
+\FunctionTok{plot}\NormalTok{(rr0)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{{[}중간고사정리{]}기술통계_files/figure-latex/unnamed-chunk-35-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{pairs}\NormalTok{(rr0,}\AttributeTok{main=}\StringTok{"산점도행렬"}\NormalTok{,}\AttributeTok{col=}\StringTok{"blue"}\NormalTok{, }\AttributeTok{pch=}\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <82>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <b0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <a0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <90>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <8f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <84>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <96>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <89>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <a0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <ac>
+\end{verbatim}
+
+\includegraphics{{[}중간고사정리{]}기술통계_files/figure-latex/unnamed-chunk-36-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{pairs}\NormalTok{(rr0,}\AttributeTok{main=}\StringTok{"산점도행렬"}\NormalTok{,}\AttributeTok{col=}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{,}\DecValTok{3}\NormalTok{), }\AttributeTok{pch=}\FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{18}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <82>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <b0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <ec>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <a0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <90>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <8f>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <84>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <ed>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <96>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <89>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <eb>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <a0>
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in mtext(main, 3, line.main, outer = TRUE, at = 0.5, cex = cex.main, :
+## conversion failure on '산점도행렬' in 'mbcsToSbcs': dot substituted for <ac>
+\end{verbatim}
+
+\includegraphics{{[}중간고사정리{]}기술통계_files/figure-latex/unnamed-chunk-37-1.pdf}
+
+\end{document}

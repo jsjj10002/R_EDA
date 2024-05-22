@@ -1,0 +1,73 @@
+---
+title: '240508 8.3.4 부터'
+author: "215083 박재석"
+date: "`r Sys.Date()`"
+output: html_document
+---
+#### 8.3.4데이트형,데이트-타임형, 타임형형
+
+```{r include=FALSE}
+library(tidyverse)
+```
+
+```{r include=FALSE}
+#install.packages("hms")
+library(hms)
+```
+
+```{r}
+parse_date("2010-10-01")
+```
+```
+
+```
+```{r}
+parse_date("01/02/15","%d/%m/%y")
+```
+비영어권-언어 인수 지정
+```{r}
+parse_date("1 janvier 2015","%d %B %Y", locale = locale("fr"))
+```
+### 8.4 파일 파싱하기
+```{r}
+guess_parser("2010-10-01")
+```
+
+```{r}
+str(parse_guess("2010-10-10"))
+```
+```{r}
+challenge <- read.csv(readr_example("challenge.csv"))
+```
+
+```{r}
+problems(challenge)
+```
+
+```{r}
+head(challenge)
+```
+
+```{r}
+library(readr)
+```
+y를 데이트열로 설정하여 y열의 유형을 수정 
+```{r}
+challenge <- read.csv(
+    readr_example("challenge.csv"),
+    col_types = cols(x=col_double(), y=col_date()))
+tail(challenge)
+```
+```{r}
+challenge2 <- read.csv(readr_example("challenge.csv"),
+                       col_types = cols(.default = col_character()))
+```
+
+### 8.5 파일에 쓰기 
+```{r}
+write_csv(challenge , "challenge2.csv")
+```
+유형 정보가 없어진다.
+```{r}
+challenge <- read.csv("challenge2.csv")
+```

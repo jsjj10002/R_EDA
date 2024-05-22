@@ -1,0 +1,302 @@
+---
+title: "기술통계 정리"
+author: "215083 박재석"
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+  html_document: default
+df_print: paged
+---
+
+```{r include=FALSE}
+library(ggplot2)
+```
+
+#### 워킹 디렉토리 확인
+
+```{r}
+getwd()
+```
+
+#### csv 파일 불러오기
+
+```{r}
+#인적자원기업 패널데이터
+rr1 <- read.csv("r_stat.csv",
+                stringsAsFactors = T,   #문자열 펙터로 저장
+                fileEncoding = "euc-kr")#인코딩 방식 지정
+str(rr1)
+
+```
+
+```{r include=FALSE}
+r <- read.csv("khkh.csv", stringsAsFactors = T)
+rr<-read.csv("kh.csv",
+         fileEncoding = "euc-kr",
+         stringsAsFactors = T)
+rrr <- read.csv("weather.csv")
+rr$gender1 <- factor(rr$gender, 
+                     levels = c(1,2),
+                     labels = c("남","여"))
+rr$study1 <- factor(rr$study,
+                    levels = c(2,3,4,5,6,7,8,9),
+                    labels=c("중학교중퇴","중학교졸업","고등학교중퇴","고등학교졸업","전문대","대졸","석사","박사"))
+rr$baby1 <- factor(rr$baby,levels = c(1,2),
+                   labels = c("예","아니오"))
+```
+
+```{r}
+#결측치 제거 
+x1 <- na.omit(rr1$연간소득)
+```
+
+## 양적자료 (연속형 변수)
+
+### 자료의 중심위치를 나타내는 대표값
+
+#### 1. 평균
+
+```{r}
+mean(x1)
+```
+
+#### 2. 중위수
+
+```{r}
+median(x1)
+```
+
+#### 3. 최빈수
+
+```{r}
+#최빈수 구하기 
+x <- c(1,2,3,3)
+xx <- unique(x) #중복되지 않는 값만 추출 
+match(x,xx)     #위치가 동일한 벡터 찾음 
+xx[which.max(tabulate(match(x,xx)))]
+```
+
+unique(), match(), which.max()를 사용해 최빈수를 찾을 수 있다.
+#### 최빈수구하기-함수 구현
+
+```{r}
+MODE <- function(t){
+    tt <- unique(t)
+    tt[which.max(tabulate(match(t,tt)))]
+}
+```
+
+```{r}
+MODE(x1)
+```
+
+#### 4. 최소, 1사분위, 중위, 평균, 3사분위, 최대
+
+```{r}
+summary(x1)
+```
+
+### 자료의 퍼짐 정도를 나타내는 값
+
+#### 1. 분산
+
+```{r}
+var(x1)
+```
+
+#### 2. 표준편차
+
+```{r}
+sd(x1)
+```
+
+#### 3. 범위
+
+```{r}
+(max(x1))           #최대 
+(min(x1))           #최소
+(max(x1)-min(x1))   
+(range(x1))         #범위 
+```
+
+#### 4. 사분위수 범위
+
+```{r}
+quantile(x1, 0.25)  #1사분위수
+quantile(x1, 0.75)  #3사분위수
+IQR(x1)             #4분위수 범위=3사분위 - 1사분위 
+quantile(x1, 0.75)-quantile(x1, 0.25)
+```
+
+### 시각화
+
+#### 1. 점도표
+
+```{r}
+dotchart(r$lifemoney, label = row.names(r))
+```
+
+#### 2. 히스토그램
+
+```{r}
+hist(rr$money,xlab = "연봉",ylab = "계급의 빈도수",
+     main="연봉의 히스그램",
+     border = "blue",#  #테두리 색 
+     col = "red",#      
+     breaks = 14,#      #계급의 개수 
+     freq = F)#         #비율 표현(False: 비율. True: 빈도 수 )
+```
+
+#### 3. 상자그림
+
+```{r}
+ggplot(rr,aes(study1,money))+
+    geom_boxplot(fill=rainbow(8))+
+    ggtitle("박스 플롯")
+```
+
+## 질적자료(범주형 변수)
+
+### 빈도분석
+
+#### 1. 도수분포표
+
+```{r}
+(table(rr1$성별1))
+```
+
+```{r}
+(table(rr1$자격증))
+```
+
+```{r}
+(table(rr1$직급1))
+```
+
+```{r}
+(table(rr1$혼인상태1))
+```
+
+#### 2. 막대도표
+
+```{r}
+a <- table(rr1$성별1)
+barplot(a, xlab="성별", ylab="빈도", main="성별 막대도표",
+        col = c("blue","red"),  #색 설정
+        horiz=T,                #방향 전환 
+        names=c("남자","여자"),
+        las=1,                  #글자 방향 (0~3까지 지정 가능)
+        legend.text=T)          #범례 표시
+legend("topright",              #범례 설정
+       legend = c("남자","여자"),
+       fill = rainbow(2))       #범례 색 설정
+```
+
+#### 3. 파이차트
+
+```{r}
+library(ggplot2)
+```
+
+```{r}
+# 설명 변수에 레이블 추가 
+
+rr$gender1 <- factor(rr$gender, 
+                     levels = c(1,2),
+                     labels = c("남","여"))
+str(rr)
+```
+
+```{r warning=FALSE}
+ggplot(rr, aes(x="",y=rr$money,fill=gender1))+
+    geom_bar(stat = "identity",
+             width = 1)+
+    coord_polar(theta = "y")+
+    ggtitle("파이차트")
+```
+
+파이차트를 그릴때는 먼저 막대도표로 만든 후 coord_polar를 이용해 극좌표계로 변환한다.
+
+#### 4. 누적도표 
+
+```{r}
+rr$study1 <- factor(rr$study,
+                    levels = c(2,3,4,5,6,7,8,9),
+                    labels=c("중학교중퇴","중학교졸업","고등학교중퇴","고등학교졸업","전문대","대졸","석사","박사"))
+```
+
+```{r}
+ggplot(rr,aes(study1))+
+    geom_bar(aes(fill=gender1),colour="black")+ #테두리 색 지정 
+    ggtitle("누적막대 차트")
+```
+
+## 두 변수 이상
+
+#### 1. 라인차트
+
+```{r message=FALSE, warning=FALSE}
+library(dplyr)
+```
+
+```{r warning=FALSE}
+qplot(month, temporary, data = rrr, 
+      geom = "line")
+```
+
+#### 2. 산점도
+
+```{r}
+rr$baby1 <- factor(rr$baby,levels = c(1,2),
+                   labels = c("예","아니오"))
+```
+
+```{r}
+ggplot(rr, aes(x=lifemoney, y=money, colour=baby1))+
+    geom_point(shape=19,size=3)
+
+```
+
+자녀의 유무에 따른 연봉과 생활비 산점도 + 산점도+라인
+
+```{r}
+plot(rr$money,rr$lifemoney)
+abline(a=40.3791,b=0.0336,
+       col="red")
+```
+
+#### 3. 버블차트
+
+```{r}
+ggplot(rr, aes(money,age))+
+    geom_point(aes(size=lifemoney),
+               shape=21,
+               colour="gray90", fill = "green",
+               alpha=0.5)+
+    geom_text(aes(y=as.numeric(age)-sqrt(lifemoney)/10,
+                  label=study),
+              vjust=1,
+              colour="gray40",
+              size=3)+
+    scale_size_area(max_size = 15,
+                    guide="none")+ #범례숨기기 
+    ggtitle("버블차트")
+```
+
+버블차트는 세 변수간의 관계, 패턴을 강조한다. 
+
+#### 4. 산점도행렬
+
+```{r}
+rr0 <- rr[c("age","money","lifemoney")] #정량데이터만 출
+plot(rr0)
+
+```
+
+```{r}
+pairs(rr0,main="산점도행렬",col="blue", pch=2)
+```
+
+```{r}
+pairs(rr0,main="산점도행렬",col=c(1,3), pch=c(3,18))
+```

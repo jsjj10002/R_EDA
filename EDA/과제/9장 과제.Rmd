@@ -1,0 +1,275 @@
+---
+title: "9장 과제"
+author: "215083 박재석"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r include=FALSE}
+library(tidyverse)
+```
+
+### 9.2 연습문제
+
+#### 2. table2와 table4a + table4b에서 비율을 계산하라.
+
+##### 1. table2에서 수행
+
+```{r}
+# a. 연도별, 국가별 사례 수 추출 
+(cases_table2 <- table2 %>%
+  filter(type == "cases") %>%
+  select(country, year, cases = count))
+
+```
+
+type이 "cases"인 행만 선택후 country, year, count 열을 선택하고 count를 cases로 이름 변경한다.
+
+```{r}
+# b. 연도별, 국가별 인구 수 추출 
+(population_table2 <- table2 %>%
+  filter(type == "population") %>%  
+  select(country, year, population = count))
+```
+
+type이 "population"인 행만 선택후 country, year, count 열을 선택하고 count를 population으로 이름 변경한다.
+
+```{r}
+# c,d 사례 수를 인구로 나누고 10,000을 곱한 후 저장 
+(rate_table2 <- cases_table2 %>%
+  left_join(population_table2, by = c("country", "year")) %>%  
+  mutate(rate = (cases / population) * 10000) ) 
+```
+
+먼저 country와 year를 기준으로 결합후 사례수를 인구로 나누고 10,000을 곱하여 비율을 계산한다.
+
+##### 2. table4a + table4b에서 실행
+
+```{r}
+table4a
+table4b
+```
+
+table4a와 table4b의 형식 탐색
+
+```{r}
+# a,b 국가별, 연도별로 사례 수와 인구 추출 
+(population_cases<- table4a %>%
+  pivot_longer(cols = -country, names_to = "year", values_to = "case") %>%
+  mutate(year = as.integer(year)) %>%
+  full_join(
+    table4b %>%
+      pivot_longer(cols = -country, names_to = "year", values_to = "population") %>%
+      mutate(year = as.integer(year)),
+    by = c("country", "year")))
+```
+
+table4a와 table4b를 long 형식으로 변환하여 인구와 사례 수 데이터 추출후 full_join을 이용해 합친다.
+
+```{r}
+# c,b 사례 수를 인구를 나눈 비율을 구하고 저장  
+(rate_table4 <- population_cases %>%
+  mutate(rate = (case / population) * 10000))
+```
+
+```         
+ 가장 쉬운 표현법은 table2처럼 데이터가 이미 tidy 형식으로 정리된 경우우다. 이 경우, dplyr 패키지를 사용하여 필터링, 결합 및 계산을 쉽게 수행할 수 있다.
+
+ 가장 어려운 표현법은 데이터가 tidy 형식이 아닌 경우다. 이 경우, 데이터를 먼저 정리해야 한다. 위 과정에서 , table4a와 table4b를 pivot_longer를 사용하여 긴 형식으로 변환하는 작업이 그렇다.
+```
+
+### 9.3 연습문제
+
+#### 1. pivot_longer() 와 pivot_wider() 가 완벽하게 대칭이 아닌 이유
+
+```{r}
+stocks <- tibble(
+  year   = c(2015, 2015, 2016, 2016),
+  half   = c(1, 2, 1, 2),
+  Return = c(1.88, 0.59, 0.92, 0.17)
+)
+stocks
+```
+
+```{r}
+result <- stocks %>%
+  pivot_wider(names_from = year, values_from = Return) %>%
+  pivot_longer(`2015`:`2016`, names_to = "year", values_to = "Return")
+result
+```
+
+```         
+ 결과를 보면, year 열의 데이터 유형이 숫자형(numeric)에서 문자형(character)으로 변경된 것을 알 수 있다. pivot_wider()를 사용할 때, names_from 인수로 지정된 열의 값이 새로운 열 이름이 된다. 이 열 이름은 기본적으로 문자열로 처리된다. 따라서, 넓은 형식에서 year 열은 2015와 2016이라는 문자열 열 이름을 갖게 된다.
+```
+
+다음과 같이 해결할 수 있다.
+
+```{R}
+(result <- stocks %>%
+  pivot_wider(names_from = year, values_from = Return) %>%
+  pivot_longer(cols = `2015`:`2016`, names_to = "year", values_to = "Return",
+               names_transform = list(year = as.numeric)))
+```
+
+names_transform = list(year = as.numeric) 를 이용하면 문자형이 아닌 숫자형으로 변환 할 수 있다.
+
+#### 3. 다음이 에러가 나는 이유
+
+```{r}
+people <- tribble(
+  ~name,             ~key,    ~value,
+  #-----------------|--------|------
+  "Phillip Woods",   "age",       45,
+  "Phillip Woods",   "height",   186,
+  "Phillip Woods",   "age",       50,
+  "Jessica Cordero", "age",       37,
+  "Jessica Cordero", "height",   156
+)
+```
+
+```         
+동일한 키-값 쌍이 중복되어 있기 때문에 오류가 발생한다. "Phillip Woods"의 경우 "age"에 대해 두 개의 값(45와 50)이 있다. pivot_wider()는 이러한 중복을 처리할 수 없으므로 오류가 발생한다.
+```
+
+다음과 같이 인덱스를 부여해 오류를 해결 할 수 있다.
+
+```{r}
+(people_with_index <- people %>%
+  group_by(name, key) %>%
+  mutate(index = row_number()) %>%
+  ungroup())
+
+people_with_index %>%
+  pivot_wider(names_from = c(key, index), values_from = value)
+```
+
+```         
+group_by(name, key) %>% mutate(index = row_number()): 각 name 및 key 조합에 대해 고유한 인덱스를 생성한다.
+
+pivot_wider(names_from = c(key, index), values_from = value): key와 index를 조합하여 새로운 열 이름을 생성한다. 이후 value 열의 값을 새로운 열에 채운다.
+```
+
+## 9.4연습문제
+
+#### 1. separate()의 인수
+
+```         
+separate() 함수의 extra와 fill 인수는 데이터셋에서 분리할 때 열 개수가 일치하지 않는 경우의 처리를 지정하는 데 사용된다.
+```
+
+##### extra 인수
+
+```{r}
+# extra = "warn"
+tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>%
+  separate(x, c("one", "two", "three", extra = "warn"))
+```
+
+추가된 값이 있으면 경고 메시지를 표시하고 추가된 값을 마지막 열에 추가한다.
+
+```{r}
+# extra = "drop"
+tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>%
+  separate(x, c("one", "two", "three"), extra = "drop")
+```
+
+추가된 값을 무시한다.
+
+```{r}
+# extra = "merge"
+tibble(x = c("a,b,c", "d,e,f,g", "h,i,j")) %>%
+  separate(x, c("one", "two", "three"), extra = "merge")
+```
+
+남은 값들을 마지막 열에 병합한다.
+
+##### fill 인수
+
+```{r}
+# fill = "warn"
+tibble(x = c("a,b,c", "d,e", "f,g,i"))%>%
+  separate(x, c("one", "two", "three"))
+```
+
+값이 부족할 때 경고 메시지를 표시한다.
+
+```{r}
+# fill = "right"
+tibble(x = c("a,b,c", "d,e", "f,g,i"))%>%
+  separate(x, c("one", "two", "three"), fill = "right")
+```
+
+오른쪽에서 NA를 추가하여 채운다.
+
+```{r}
+# fill = "left"
+tibble(x = c("a,b,c", "d,e", "f,g,i"))%>%
+  separate(x, c("one", "two", "three"), fill = "left")
+```
+
+왼쪽에서 NA를 추가하여 채운다.
+
+#### 2. remove 인수의 역할
+
+##### unite()
+
+```{r}
+# 데이터 프레임 생성
+(df <- tibble(
+  name = c("Park", "Jae", "Seok"),
+  age = c(21, 22, 23),
+  city = c("Seoul", "Gwanju", "Pohang")
+))
+```
+
+```{r}
+# remove = TRUE
+df %>%
+  unite("info", name, age, city, sep = ", ",remove = TRUE)
+
+```
+
+결합 후 원본 열을 제거한다.
+
+```{r}
+# remove = FALSE
+df %>%
+  unite("info", name, age, city, sep = ", ",remove = FALSE)
+
+```
+
+결합 후에도 원본 열을 유지한다.
+
+##### separate()
+
+```{r}
+# 데이터 프레임 생성
+(df <- tibble(
+  info = c("Park, 21, Seoul", "Jae, 22, Gwangju", "Seok, 23, Pohang")
+))
+
+```
+
+```{r}
+# remove = TRUE
+df %>%
+  separate(info, into = c("name", "age", "city"), sep = ", ",remove = TRUE)
+```
+
+분리 후 원본 열을 제거한다다.
+
+```{r}
+# remove = FALSE
+df %>%
+  separate(info, into = c("name", "age", "city"), sep = ", ",remove = FALSE)
+```
+
+분리 후에도 원본 열을 유지한다.
+
+```         
+1. 원본 열을 유지하고 싶을 때 유용하다. 예를 들어, 데이터의 특정 변형을 수행하더라도 원본 데이터를 보존해야 할 필요가 있는 경우 remove = FALSE로 설정할 수 있다.
+
+2. 데이터의 무결성을 유지하면서 추가적인 열을 생성하여 분석하고 싶을 때 사용한다.
+
+3.원본 열을 기준으로 추가적인 검증이나 다른 분석을 수행할 계획이 있을 때 유용하다.
+```

@@ -1,0 +1,291 @@
+---
+title: "240520-10장부터"
+author: "215083 박재석"
+date: "`r Sys.Date()`"
+output: html_document
+---
+# 10. dplyr로 하는 관계형 데이터 
+
+```
+[두 개의 테이블에서작동하는 동사]
+뮤테이팅 조인: 테이블의 새로운 변수로 추가 
+필터링 조인: 관측값과 일치하는지 여부로 관측값을 걸러냄
+집합연산: 관측값을 집합 원소로 취급  
+```
+
+```{r}
+library(tidyverse)
+library(nycflights13)
+```
+
+## 10.2 nycflights13
+```{r}
+nycflights13::flights %>% 
+    print(n=6, width=Inf)
+```
+```{r}
+airlines
+```
+```{r}
+nycflights13::airports %>% # 각 공항 정보가 faa 공항 코드로 식별됨
+print(n = 10, width = Inf)
+```
+```{r}
+nycflights13::planes %>% # 각 여객기 정보가 tailnum으로 식별됨
+print(n = 10, width = Inf)
+```
+```{r}
+nycflights13::weather %>% # 각 NYC 공항의 매 시각 날씨 정보
+print(n = 10, width = Inf)
+```
+```
+key 뱐수를 찾아서 어떻게연결할지 
+key 변수가 2개일 경우 설정을 해 줘야함 
+print함수를 이용해 key변수를 눈으로 확인하는게 중요하다. 
+```
+```{r}
+flights_latlon <- flights %>% #flights_latlon 변수 생성
+ inner_join(select(airports, origin = faa, origin_lat = lat, origin_lon = lon),
+  by = "origin") %>% 
+ inner_join(select(airports, dest = faa, dest_lat = lat, dest_lon = lon),
+  by = "dest")
+
+flights_latlon %>%
+   print(n = 6, width = Inf)
+```
+## 10.3 KEY
+
+```
+-기본키
+-외래키: 다른 테이블의 값과 연결
+한 변수가 둘 다 해당 될 수 있다. 
+```
+기본키를 찾는 방법 
+```{r}
+planes %>%
+   count(tailnum) %>%
+   filter(n > 1)
+```
+기본키를 count()하고 n이 1보다 큰 항목 찾기: 항목이 없으면 기본키가 됨
+
+```{r}
+
+weather %>%
+   count(year, month, day, hour, origin) %>%
+   filter(n > 1)
+```
+
+n=2 : 고유키가 아니다. 
+
+#### 명시적인 기본키가 없는 경우가 있다. 
+
+```{r}
+flights %>%
+   count(year, month, day, flight) %>%
+   filter(n > 1)
+```
+```{r}
+flights %>%
+   count(year, month, day, tailnum) %>%
+   filter(n > 1)
+```
+```
+대체키(surrogate key) 테이블에 기본키가 없는 경우, mutate()와 row_number()로 기본키 추가
+
+[관계]
+일대일
+일대다
+다대다 
+다대일 
+```
+## 10.4 뮤테이팅 조인 
+```
+두 테이블의 변수를 결합 할 수 있다. 
+```
+```{r}
+flights2 <- flights %>%
+   select(year:day, hour, origin, dest, tailnum, carrier)
+flights2
+```
+변수 8개 
+#### left_join()
+
+```{r}
+airlines
+```
+변수 2개 
+```{r}
+flights2 %>%
+   select(-origin, -dest) %>% #제외 
+   left_join(airlines, by = "carrier")
+```
+"carrier" 변수를 기준으로 연결한다. 8-2+1=7 총 7개의 변수가 남는다. 
+새 변수가 추가되기 때문에 뮤테이팅 조인이라 한다. 
+### 10.4.1 조인 이해하기 
+
+```{r}
+x <- tribble(~key, ~val_x,
+             1, "x1",
+             2, "x2",
+             3, "x3")
+y <- tribble(~key, ~val_y,
+             1, "y1",
+             2, "y2",
+             4, "y3")
+
+x
+```
+왼쪽 열: 키변수
+조인에서 매치되는 점의 수는 풀력행의 수이다. 
+
+### 10.4.2내부조인(inner join)
+: 어떤 변수가 key인지 by를 이용해 설정, 두 테이블 모두의 관측값 보존 
+
+### 10.4.3외부조인
+: 적어도 하나 테이블 관측값 모두 보존 
+```
+left join       : 왼쪽 값 보존 
+right join      : 오른쪽 값 보존 
+full join       : 모두 보존 
+없는 값: NA
+```
+### 10.4.4 중복키: 키가 고유하지 않는 경우 
+```{r}
+x <- tribble(
+   ~key, ~val_x,
+   1, "x1",
+   2, "x2",
+   2, "x3",
+   1, "x4")
+y <- tribble(
+   ~key, ~val_y,
+   1, "y1",
+   2, "y2")
+left_join(x, y, by = "key")
+
+```
+```{r}
+x %>% right_join(y,by="key")
+```
+```{r}
+x %>% full_join(y,by="key")
+```
+```{r}
+y <- tribble(
+   ~key, ~val_y,
+   1, "y1",
+   2, "y2",
+   2, "y3",
+   1, "y4")
+left_join(x, y, by = "key")
+```
+
+```{r}
+flights2 %>% 
+    select(-origin, -dest) %>% 
+    mutate(name = airlines$name[
+        match(carrier,airlines$carrier)
+    ])
+```
+```{r}
+flights2 %>% 
+    select(-origin, -dest) %>% 
+    left_join(airlines, by="carrier")
+```
+위의 뮤테이트를 레프트 조인으로 바꿔 동일한 결과를얻을 수 있다. 
+
+### 10.4.5 키 열 정의하기 
+
+```{r}
+flights2 %>%
+   left_join(weather) %>%
+   print(n = 6, width = Inf)
+```
+key값을 쓰지 않은 자연조인 
+
+```{r}
+flights2 %>%
+   left_join(planes, by = "tailnum") %>%
+   print(n = 6, width = Inf)
+```
+문자열 벡터를 사용해 조인 
+
+
+이름이 다를 경우 by=c("a"="b")
+
+```{r}
+flights2 %>% 
+    left_join(airports, c("dest"="faa"))
+```
+```{r}
+flights2 %>% 
+    left_join(airports,c("origin"= "faa"))
+```
+### 10.4.7 기타 구현 
+
+merge()와 인수를 이용해 조인 할 수 있다. 
+
+## 10.5 필터링 조인 
+```
+semi_join : x의 관측값 보존 - 일치 문제에 유용
+anti_join : y와 매치되는 x의 관측값 삭제 - 불일치에 유용
+```
+
+```{r}
+
+top_dest <- flights %>%
+   count(dest, sort = TRUE) %>% # 정렬 
+   head(10)
+top_dest
+```
+목적지 중 한 곳으로 운행한 항공편을 찾는 방법: 필터 만들기
+```{r}
+flights %>%
+   filter(dest %in% top_dest$dest) %>%
+   print(n = 6, width = Inf)
+```
+semi_join을 사용하는 방법
+
+```{r}
+flights %>%
+   semi_join(top_dest) %>%
+   print(n = 6, width = Inf)
+```
+10개와 매칭 되는 것만 보여줌 
+
+semi_join은 뮤테이팅 조인과 달리 매칭되지 않는 부분은 삭제한다(행을 복제하지 않음 ). 뮤테이팅 조인에서는 복제해서 NA 
+
+```{r}
+flights %>%
+   anti_join(planes, by = "tailnum") %>%
+   count(tailnum, sort = TRUE)
+```
+매칭되지 않는 것만 찾음 
+
+데이터셋을 주고 변수기준으로 join을 하고 개수, 평균 구하기 
+
+## 10.6 조인 문제 
+## 10.7 집합연산
+```
+intersect: x,y 모두에 있는 관측값만 반환 
+union: x와 y의 고유한 관측값
+setdiff: x에만 있는 
+```
+```{r}
+df1 <- tribble(
+   ~x, ~y,
+   1, 1,
+   2, 1)
+df2 <- tribble(
+   ~x, ~y,
+   1, 1,
+   1, 2)
+```
+```{r}
+intersect(df1, df2)
+```
+교집합
+
+
+
+

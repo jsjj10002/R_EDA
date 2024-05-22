@@ -1,0 +1,236 @@
+---
+title: '[중간고사정리]탐색적자료분석'
+author: "215083 박재석"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```         
+[변동]
+범주형: 막대그래프, 상자그림
+연속형: 산점도, 상자그림, 히스토그램
+
+[공변]
+두 범주형 관게
+두 연속형 관계
+범주형 변수에 따른 연속형 관계
+```
+
+```{r message=FALSE}
+library(tidyverse)
+```
+
+## 변동
+
+```         
+binwidth            : 히스토그램의 간격 폭 설정 
+
+cut_width           : count와 함께 쓰면 빈도를 볼 수 있다. 
+geom_freqpoly       : 각 변주형 변수에 따라 연속형 변수 나타냄 
+                      y=..density..옵션-비율로 볼 수 있음.        
+coord_cartesian()   : 확대-이상치 확인에 활용 
+```
+
+```{r}
+ggplot(diamonds)+
+    geom_histogram(aes(x=carat), binwidth = 0.5)
+```
+
+```{r}
+diamonds %>% 
+    count(cut_width(carat, 0.5))
+```
+
+```{r}
+diamonds %>% 
+    filter(carat<3) %>% 
+    ggplot(aes(x=carat, color = cut))+
+    geom_freqpoly()
+```
+
+높이를 선으로 나타냄. 범주에따라 빈도가 어떻게 달라지는 지 보기 위함. 전체적인 빈도수가 많이 다르므로 분포의 차이를 파악하기 어려움
+
+```{r}
+ggplot(data = diamonds, aes(x=price, y= ..density..))+
+    geom_freqpoly(aes(color= cut), binwidth =500)
+```
+
+y= ..density.. 옵션을 이용해 밀도를 기준으로 바꿀 수 있다. (비율로 볼 수 있다.)
+
+### faithful 데이터
+
+```{r}
+ggplot(faithful, aes(x=eruptions))+
+    geom_histogram(binwidth = 0.25)
+```
+
+연속형을 두 군집으로 나눠 범주처럼 쓸 수 있음.
+
+## 이상값 확인
+
+```{r}
+ggplot(diamonds)+
+    geom_histogram(aes(x=y), binwidth = 0.5)+
+    coord_cartesian(ylim = c(0,50))
+```
+
+## 결측값
+
+```         
+between()   : 사이값 추출 
+ifeles()    : 참 - 두번째, 거짓 - 세번째
+```
+
+```         
+[이상치를 처리하는 방법법]
+1. 제거: 제거한 사실을 밝혀야한다(입력오류인지, 이상치인지 밝혀야한다. )
+2. 평균으로 대체
+3. NA로 대체하여 표기해 이상치임을 표현
+```
+
+#### 이상값 포함된 행 전체 삭제
+
+```{r}
+diamonds %>% 
+    filter(between(y,3,20))
+```
+
+between사용해 사이값만 가지고옴.
+
+#### 이상값을 결측값으로 변경
+
+```{r}
+diamonds %>% 
+    mutate(y = ifelse(y<3|y>20,NA,y))
+
+```
+
+ifeles: True이면 두번째, False이면 세번째
+
+## 공변동
+
+```         
+둘 이상의 변숫값이 연관되어 동시에 변하는 경향을 말함. 
+두 게 이상의 변수 사이의 관계를 시각화가 좋은 방법 
+변수의 유형의 따라 방법 달라짐. 
+```
+
+```         
+outlier.color   : 이상치 색상 선택
+reorder         : class 순서 변경 
+geom_count      : 개수에 따라 원 커짐
+geom_tile       : 개수에 따라 색 진해짐(범주-범주)
+[2차원 bin]
+geom_hex        : 빈도에따라 색진해짐(연속-연속) 
+geom_bin2d      : 빈도에따라 색진해짐(연속-연속)
+[boxplot]
+varwidth = T    : 빈도에 따라 너비 넓어짐
+cut_number      : 빈도에 따라 널어지게 할 수 있다. 
+```
+
+### 박스플롯으로 분포 보기
+
+```         
+[박스플롯  구성 설명]
+F_L: 1사분위수 * 3
+f_L: 1사분위수 * 1.5
+Q_1
+Q_2
+Q_3
+f_U: 3사분위수 * 1.5
+F_U: 3사분위수 * 3
+
+(f_L,f_U)에서최소,최대 수염으로 표시
+(f,F):점
+(F,inf):별
+```
+
+```{r}
+diamonds %>% 
+    ggplot(aes(x=cut,y=price))+
+    geom_boxplot()
+```
+
+```{r}
+diamonds %>% 
+    ggplot(aes(x=cut,y=price, fill=cut))+
+    geom_boxplot(outlier.color = "red")
+```
+
+범주마다 색 다르고, 이상치 색넣음
+
+#### reorder 옵션
+
+```{r}
+mpg %>% 
+    ggplot(aes(x=reorder(class,hwy,FUN=median),
+               y=hwy))+
+    geom_boxplot()
+```
+
+추세를 더욱 쉽게 파악하기 위해 변수의 중간값으로 class변수의 순서를 바꿈.
+
+#### 두개의 범주형 변수
+
+```{r}
+ggplot(diamonds)+
+    geom_count(aes(x=cut, y=color))
+```
+
+```{r}
+diamonds %>% 
+    count(color, cut) %>% 
+ggplot(aes(x=color, y=cut))+
+    geom_tile(aes(fill=n))
+```
+
+### 두 개의 연속형변수
+
+```{r}
+diamonds %>% 
+    filter(carat<3) %>% 
+    ggplot()+
+    geom_bin2d(aes(x=carat, y=price))
+```
+
+```{r}
+library(hexbin)
+```
+
+```{r}
+diamonds %>% 
+    filter(carat<3) %>% 
+    ggplot()+
+    geom_hex(aes(x=carat, y=price))
+```
+
+#### boxpolt과 그룹
+
+```{r}
+diamonds %>% 
+    filter(carat<3) %>%
+    ggplot(aes(x=carat,y=price))+
+    geom_boxplot(aes(group=cut_width(carat,0.1)))
+```
+  
+  
+  
+구간을 나눠 구간별로 박스플롯을 그렸다. 
+
+```{r}
+diamonds %>% 
+    filter(carat<3) %>%
+    ggplot(aes(x=carat,y=price))+
+    geom_boxplot(aes(group=cut_number(carat,20)))
+```
+
+박스플롯의 너비를 점의 개수와 비례하도록 설정(연속형)
+
+```{r}
+diamonds %>% 
+    filter(carat<3) %>%
+    ggplot(aes(x=cut,y=price))+
+    geom_boxplot(varwidth = T)
+```
+   
+범주형인 경우- varwidth이용

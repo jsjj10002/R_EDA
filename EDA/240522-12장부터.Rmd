@@ -1,0 +1,145 @@
+---
+title: "240522-12장 부터"
+author: "215083 박재석"
+date: "`r Sys.Date()`"
+output: html_document
+---
+# 12. forcats로 하는 팩터형 
+
+```{r}
+
+library(tidyverse)
+library(forcats)
+```
+## 12.2 팩터형 생성하기 
+```{r}
+x1 <- c("Dec", "Apr", "Jan", "Mar")
+```
+```{r}
+# 오타가 있는 경우 
+x2 <- c("Dec", "Apr", "Jam", "Mar")
+x2
+```
+```{r}
+sort(x1)
+```
+##### 유효래밸 아수트 생성
+```{r}
+month_levels <- c(
+  "Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+)
+```
+```{r}
+y1 <- factor(x1, levels = month_levels)
+y1
+```
+```{r}
+## 팩터형(수치값)으로 정렬. 
+# decreasing = FALSE
+sort(y1)  # 디폴트: 오름차순
+```
+```{R}
+y2 <- factor(x2, levels = month_levels)
+y2
+```
+```{r}
+# 경고를 발생시키고 싶으면?
+y2 <- parse_factor(x2, levels = month_levels) 
+```
+```{r}
+## 알파벳 순서
+factor(x1)
+```
+때때로 레벨의 순서가 데이터에서 처음으로 등장하는 순서와 일치되길 원한다면?
+
+팩터형 생성 시 레벨을 unique(x) 로 설정하거나, 사후적으로는 fct_inorder() 를 사용하면 된다.
+
+```{r}
+# levels = unique(x1) 
+f1 <- factor(x1, levels = unique(x1))
+f1 
+```
+
+
+## 12.3 종합 사회조사 
+```{r}
+gss_cat
+```
+```{r}
+gss_cat %>% 
+  ggplot(aes(race)) +
+  geom_bar()
+```
+기본적으로 값이 없는 레벨을 제거한다. 
+
+```{r}
+## ?scale_x_discrete()
+# 디폴트는 drop = TRUE
+## drop = FALSE 인수 설정.
+gss_cat %>% 
+  ggplot(aes(race)) +
+  geom_bar() +
+  scale_x_discrete(drop = FALSE)
+```
+강제로 표시하기 scale_x_discrete(drop = FALSE)
+
+연습문제 2번 풀기 
+
+## 12.4 팩터 순서 수정하기 
+
+```
+fct_reorder() : 레벨을 재정렬
+fct_relevel() : 특별한 레벨들과 함께 앞으로 가져올때 유용
+fct_reorder2()` : 가장 큰 x 값과 연관된 y 값으로 팩터를 재정렬
+fct_infreq() : 빈도 오름차순으로 레벨을 정렬
+```
+팩터 레벨의 순서 변경 
+```{r}
+# 종교에 따른 하루 TV 시청시간의 평균
+# relig: fct
+# age, tvhours : int
+
+relig_summary <- gss_cat %>%
+  group_by(relig) %>%  # 종교별
+  summarise(
+    age = mean(age, na.rm = TRUE),  
+    tvhours = mean(tvhours, na.rm = TRUE), # 하루 TV 시청시간의 평균, 결측치 제거 
+    n = n()
+  )
+relig_summary
+```
+@@에 따른 / @@ 별로 == group_by
+```{r}
+relig_summary %>% 
+  ggplot(
+    aes(tvhours, relig)) +
+  geom_point()
+```
+보기 불편하다 
+```
+[fct_reorder()]
+- f : 레벨을 수정할 팩터
+- x : 레벨을 재정렬하기 위해 사용할 수치형 벡터
+- 선택적으로 fun : f의 각 값에 대해 x 값이 여러 개가 있을 경우, 사용할 함수. 기본값은 median 이다.
+```
+
+```{r}
+## 팩터 레벨을 재정렬
+## aes(  , fct_reorder() ) 
+# fct_reorder() : 오름차순 디폴트
+relig_summary %>% 
+  ggplot(
+    aes(tvhours,fct_reorder(relig, tvhours))) +
+  geom_point()
+
+```
+
+
+
+
+
+
+
+
+

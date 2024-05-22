@@ -1,0 +1,332 @@
+---
+title: "1.데이터시각화 정리"
+author: "215083 박재석"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r include=FALSE}
+library(tidyverse)
+```
+
+### 산점도
+
+#### 엔진의 크기와 연비 사이의 관계
+
+```{r}
+ggplot(mpg)+
+    geom_point(aes(displ,hwy))
+```
+
+#### 연비와 실린더 수 사이의 관계
+
+```{r}
+ggplot(mpg)+
+    geom_point(aes(hwy,cyl))
+```
+
+#### 차의 종류와 구동방식 사이 관계
+
+```{r}
+ggplot(mpg)+
+    geom_point(aes(class,drv))
+```
+
+산점도는 연속형 변수를 표현할 때 유용 \## 심미성 매핑
+
+```         
+color       : 색(테두리)
+fill        : 색(안쪽) 
+size        : 크기
+alpha       : 투명도  
+shape       : 크기(0~25)
+stroke      : 테두리 굵기 
+```
+
+### 1. 속성 자동 설정
+
+#### 점의 색으로 구분
+
+```{r}
+ggplot(mpg)+
+    geom_point(aes(displ,hwy,color=class))
+```
+
+#### 점의 사이즈로 구분
+
+```{r warning=FALSE}
+ggplot(mpg)+
+    geom_point(aes(displ,hwy,size=class))
+```
+
+#### 점의 투명도로 구분
+
+```{r warning=FALSE}
+ggplot(mpg)+
+    geom_point(aes(displ,hwy,alpha=class))
+```
+
+#### 점의 모양으로 구분
+
+```{r warning=FALSE}
+ggplot(mpg)+
+    geom_point(aes(displ,hwy,shape=class))
+```
+
+여섯개의 모양만 사용함.
+
+### 2. 속성 수동 설정
+
+```{r warning=FALSE}
+ggplot(mpg)+
+    geom_point(aes(displ,hwy,alpha=displ<6),shape=21,stroke=3,
+               color="black", fill="red",size=5)
+```
+
+조건으로 심미성 부여할 수 있음.
+
+shape 21\~25: fill로 안쪽 색상, color로 테두리 색상 지정.
+
+```{r}
+?geom_point
+```
+
+## 면분할
+
+```         
+기본적으로 이산형 변수를 범주형 기준으로 분할
+이산형 기준으로 나눌 수도 있음 
+facet_wrap(): 나눌 기준 하나 
+facet_grid(): 나눌 기준 둘 
+
+--- 자료 크기 알아보기 --- 
+dim()       : 차원 반환
+length()    : 길이 반환 
+```
+
+### 이산형 변수
+
+```{r}
+ggplot(mpg)+
+    geom_point(aes(x=displ,y=hwy))+
+    facet_wrap(~class,nrow = 2)
+```
+
+나타낼 데이터: 연속형 변수
+
+분할 기준: 하나의 범주형 변수
+
+### 두 변수의 조합으로 면분할
+
+```{r}
+ggplot(mpg)+
+    geom_point(aes(displ,hwy))+
+    facet_grid(drv ~ cyl)
+```
+
+분할 기준: 두 개의 범주형 변수
+
+왼쪽: y축, 오른쪽: x축
+
+#### 변수 하나; 면 분할을 원하지 않을떄
+
+[1]facet_grid 사용
+
+```{r}
+ggplot(mpg)+
+    geom_point(aes(displ,hwy))+
+    facet_grid(.~cyl)
+```
+
+[2]facet_wrap 사용
+
+```{r}
+ggplot(mpg)+
+    geom_point(aes(displ,hwy))+
+    facet_wrap(~cyl,nrow = 1)
+```
+
+#### 자료 크기 알아보기
+
+```{r}
+dim(mpg)
+length(mpg)
+```
+
+## 기하객체
+
+### 1. 추세선
+
+```{r warning=FALSE}
+ggplot(mpg, aes(displ,hwy))+
+    geom_point()+
+    geom_smooth(aes(color=drv),show.legend = T,
+                se=T)
+```
+
+```{r warning=FALSE}
+ggplot(mpg, aes(displ,hwy))+
+    geom_point()+
+    geom_smooth(data=filter(mpg,class=="compact"),
+                se=F)
+```
+
+filter을 사용해 원하는 범주의 추세선만 그릴 수 도 있음.
+
+## 통계적 변환
+
+```         
+stat                : 통계적 계산 알고리즘 
+geom_bar()          : 기본적으로 stat(count)
+                      비율은 stat(prop),group=1
+stat_count()        : bar차트와  와 같음   
+stat_summary()      : 데이터 요약, 최소, 최대, 중앙값 설정 가능 
+```
+
+#### y축 도수로
+
+```{r}
+ggplot(diamonds, aes(x=cut))+
+    geom_bar()
+```
+
+자동으로 빈도로 설정
+
+```{r}
+ggplot(diamonds, aes(x=cut))+
+    stat_count()
+```
+
+stat_count()을 사용해 y축을 빈도로 지정
+
+#### y축 데이터 원값
+
+```{r}
+demo <- tribble( 
+  ~cut, ~freq, 
+  "Fair", 1610, 
+  "Good", 4906, 
+  "Very Good", 12082,
+  "Premium", 13791, 
+  "Ideal", 21551 )
+```
+
+```{r}
+ggplot(data = demo) + 
+  geom_bar(mapping = aes(x = cut, y = freq), stat = "identity")
+```
+
+stat을 설정해 빈도, 원 값으로 나타낼 수 있다.
+
+#### y축 비율로
+
+```{r warning=FALSE}
+ggplot(diamonds)+
+    geom_bar(aes(cut,stat(prop),group=1))
+```
+
+#### stat_summary(데이터 요약)
+
+```{r warning=FALSE}
+ggplot(diamonds)+
+    stat_summary(aes(x=cut, y=depth),
+                 fun.ymin = min,
+                 fun.ymax = max,
+                 fun.y = median)
+```
+
+?stat_summary를 통해 설명을 볼 수 있다. \## 위치조정 \#### 범주별 다른 테두리색
+
+```{r}
+ggplot(diamonds)+
+    geom_bar(aes(cut, color=cut))
+    
+```
+
+#### 범주별 다른 막대 색
+
+```{r}
+ggplot(diamonds)+
+    geom_bar(aes(cut, fill=cut))
+    
+```
+
+#### 막대 누적
+
+```{r}
+ggplot(diamonds)+
+    geom_bar(aes(cut, fill=clarity))
+```
+
+### position 인수
+
+```         
+position=
+          "identiey"    : 정확히 배치 - 겹침 
+          "dodge"       : 서로 옆으로 - 개별값 비교  
+          "fill"        : 동일 높이 - 비율 
+          "jitter"      : 산점도-오버플로팅 방지  
+```
+
+### 막대 누적
+
+#### 1.position = "identity"
+
+```{r}
+
+ggplot(diamonds, aes(cut,fill=clarity))+
+    geom_bar(position = "identity",
+             alpha=1/5)
+```
+
+#### 2. position = "fill"
+
+```{r}
+ggplot(diamonds)+
+    geom_bar(aes(cut, fill = clarity), position = "fill")
+```
+
+#### 3. position = "dodge"
+
+```{r}
+ggplot(diamonds)+
+    geom_bar(aes(cut, fill = clarity), position = "dodge")
+```
+
+### 오버플로팅
+
+#### 4. position = "jitter"
+
+```{r}
+ggplot(mpg)+
+    geom_point(aes(displ,hwy), position = "jitter")
+```
+
+오버플로팅을 피할 수 있다. = geom_jitter
+
+## 좌표계
+
+```         
+coord_flip()    : x-y축 변환 
+coord_polar()   : 극좌표, geom_bar와 함께 사용 
+```
+
+#### x축, y축 위치 바꾸기
+
+```{r}
+ggplot(mpg, aes(class, hwy))+
+    geom_boxplot()+
+    coord_flip()
+```
+
+#### 극좌표 사용 - 장미차트 만들기
+
+```{r}
+ggplot(diamonds)+
+    geom_bar(aes(x=cut, fill=cut),
+             show.legend = T,
+             width = 1)+
+    theme(aspect.ratio = 1)+
+    labs(x = NULL, y=NULL)+
+    coord_polar()
+```
